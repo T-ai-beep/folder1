@@ -38,7 +38,6 @@ def make_client():
 
 # ── Shared streaming helper ───────────────────────────────────────────────────
 def streamed(prompt, temperature=0.75):
-    """Generator: yields SSE data lines from Groq streaming."""
     client = make_client()
     if not client:
         yield f"data: {json.dumps({'error': 'No API key configured.'})}\n\n"
@@ -67,7 +66,6 @@ def sse_response(prompt, temperature=0.75):
     )
 
 def require_fields(data, *fields):
-    """Returns cleaned dict or raises ValueError."""
     out = {}
     for f in fields:
         val = data.get(f, "").strip()
@@ -158,42 +156,37 @@ def stream_email():
     num  = min(int(d.get("num_variations", 3)), 5)
     tone = d.get("tone", "professional")
 
-    prompt = f"""Write {num} complete cold email(s). Each must be a full, ready-to-send professional email — not a fragment, not an outline.
+    prompt = f"""You are writing cold emails on behalf of {v['sender_name']}.
 
-SENDER:
-- Name: {v['sender_name']}
-- What they offer: {v['sender_service']}
-- The result clients get: {v['sender_value']}
+CONTEXT:
+- Sender offers: {v['sender_service']}
+- The result the recipient gets: {v['sender_value']}
+- Recipient name: {v['target_name']}
+- Recipient company: {v['target_company']}
+- Reason for reaching out: {v['target_pain']}
+- Tone: {tone}
 
-RECIPIENT:
-- Name: {v['target_name']}
-- Company: {v['target_company']}
-- Why reaching out: {v['target_pain']}
+Write {num} cold email variation(s). Each must be complete and ready to send.
 
-TONE: {tone}
+STRICT RULES — violating any of these makes the email unusable:
+- Subject line first, format exactly: Subject: [subject]
+- Greeting next: Hi {v['target_name']}, or Hey {v['target_name']},
+- EMAIL BODY: 75–110 words MAX. Not a word more. Count carefully.
+- One paragraph only. No bullet points. No line breaks mid-email.
+- First sentence must be about THEM — their business, their situation, their problem. Not about the sender.
+- Never mention the sender's name until the sign-off.
+- End with one CTA — a question or a specific ask. Not two options.
+- Sign off: {v['sender_name']}
 
-STRUCTURE OF EACH EMAIL:
-1. Subject line — format: "Subject: [subject here]"
-2. Greeting — "Hi [Name]," or "Hey [Name],"
-3. Opening sentence — reference something specific and real about their business
-4. 2–3 sentences connecting their problem to your solution
-5. One concrete outcome or result they can expect
-6. A single clear call to action (book a 15-min call, reply to this email, etc.)
-7. Sign-off with the sender's name
+BANNED PHRASES (do not use any of these):
+"hope this finds you well", "I wanted to reach out", "my name is", "I came across",
+"I noticed that", "as a leading", "in today's competitive", "I am writing to",
+"just following up", "touching base", "I believe", "leverage", "synergy",
+"innovative solutions", "optimize your", "streamline your"
 
-LENGTH: 120–180 words per email body (not counting subject line)
+Each variation must use a completely different opening angle and hook.
 
-NEVER USE:
-- "hope this finds you well"
-- "I wanted to reach out"
-- "my name is"
-- "I came across your"
-- "I noticed that"
-- "Just following up"
-- Generic filler openers
-
-Each variation must open from a completely different angle.
-Separate emails with a line containing only: ---"""
+Separate each email with exactly: ---"""
 
     return sse_response(prompt)
 
@@ -423,8 +416,10 @@ def scrape():
   "company": "company name or empty string",
   "what_they_do": "one sentence description or empty string",
   "pain_points": "likely business pain points based on their industry and content or empty string",
-  "contact_name": "person's name if found or empty string"
+  "contact_name": "ONLY a real human first and last name if explicitly mentioned. If no person is named, return empty string. NEVER put the company name here."
 }}
+
+Important: contact_name must be a person like 'John Smith', never a business name.
 
 Webpage text:
 {text}"""}],
@@ -432,16 +427,13 @@ Webpage text:
             temperature=0.2,
         )
         import json as _json
-        # Safely extract message content (model may return None)
         content = None
         try:
             content = getattr(result.choices[0].message, "content", None)
         except Exception:
-            # If structure is unexpected, attempt direct access then fallback to None
             try:
                 content = result.choices[0].message.content
                 print(f"DEBUG scrape response: '{content}'")
-
             except Exception:
                 content = None
         if not content:
@@ -450,7 +442,8 @@ Webpage text:
         return jsonify({"ok": True, "data": extracted})
     except Exception as e:
         return jsonify({"error": f"Could not extract data: {str(e)}"}), 400
-    # ── Tool: A/B Subject Tester ──────────────────────────────────────────────────
+
+# ── Tool: A/B Subject Tester ──────────────────────────────────────────────────
 @app.route("/stream/abtester", methods=["POST"])
 def stream_abtester():
     d = request.json or {}
@@ -489,6 +482,7 @@ Rules:
 - Be specific about why each works for THIS audience"""
 
     return sse_response(prompt, temperature=0.75)
+
 # ── Tool: Company Research (Tavily) ──────────────────────────────────────────
 import itertools
 from dotenv import load_dotenv
@@ -545,8 +539,10 @@ def research():
   "company": "company name or empty string",
   "what_they_do": "one sentence description or empty string",
   "pain_points": "likely business pain points based on their industry or empty string",
-  "contact_name": "owner or key person's name if found or empty string"
+  "contact_name": "ONLY a real human first and last name if explicitly mentioned (owner, founder, manager). If no person is named, return empty string. NEVER put the company name here."
 }}
+
+Important: contact_name must be a person like 'John Smith', never a business name.
 
 Search results:
 {combined}"""}],
@@ -555,12 +551,10 @@ Search results:
         )
         import json as _json
         import re as _re
-        # Safely extract message content (model may return None)
         content = None
         try:
             content = getattr(result.choices[0].message, "content", None)
         except Exception:
-            # If structure is unexpected, attempt direct access then fallback to None
             try:
                 content = result.choices[0].message.content
             except Exception:
@@ -577,6 +571,7 @@ Search results:
         return jsonify({"ok": True, "data": extracted})
     except Exception as e:
         return jsonify({"error": f"Could not extract data: {str(e)}"}), 400
+
 # ── Tool: Email Audit ─────────────────────────────────────────────────────────
 @app.route("/stream/audit", methods=["POST"])
 def stream_audit():
@@ -617,6 +612,54 @@ Rewrite the entire email fixing every issue identified above. Make it significan
 Be brutal. Most cold emails are bad. Don't sugarcoat."""
 
     return sse_response(prompt, temperature=0.5)
+
+# ── Tool: ICP Builder ─────────────────────────────────────────────────────────
+@app.route("/stream/icp", methods=["POST"])
+def stream_icp():
+    d = request.json or {}
+    try:
+        v = require_fields(d, "product", "price_point")
+    except ValueError as e:
+        return jsonify({"error": str(e)}), 400
+
+    best_customers = d.get("best_customers", "").strip()
+    best_customers_line = f"Best existing customers: {best_customers}" if best_customers else ""
+
+    prompt = f"""You are a B2B positioning expert. Build a detailed Ideal Customer Profile (ICP).
+
+PRODUCT/SERVICE: {v['product']}
+PRICE POINT: {v['price_point']}
+{best_customers_line}
+
+Output exactly this structure with no extra commentary:
+
+## WHO THEY ARE
+Job title(s) or business type. Company size. Industry. Annual revenue range. Geography if relevant. 2-3 sentences max.
+
+## WHAT KEEPS THEM UP AT NIGHT
+3 specific pain points they feel daily. Each as one punchy sentence. Not generic — make it feel like you're reading their mind.
+
+## WHAT THEY'VE ALREADY TRIED
+2-3 solutions they've attempted before finding you. Why those failed or fell short.
+
+## BUYING TRIGGERS
+5 specific events or situations that make them ready to buy RIGHT NOW. These are the moments to strike. Format as a numbered list.
+
+## OBJECTIONS THEY'LL RAISE
+Top 3 objections with a one-line counter for each. Format:
+Objection: [their words]
+Counter: [your response]
+
+## WHERE TO FIND THEM
+Specific places online and offline: subreddits, LinkedIn groups, newsletters, podcasts, conferences, Facebook groups, Twitter/X communities. Be specific — name actual communities, not just "LinkedIn".
+
+## WHAT TO SAY TO GET THEIR ATTENTION
+The single most effective angle for cold outreach to this ICP. One paragraph. This should feel like the unlock — the framing that cuts through.
+
+Be specific throughout. Vague ICPs are useless. If you don't have enough info, make educated assumptions based on the product and price point."""
+
+    return sse_response(prompt, temperature=0.6)
+
 # ── Launch ────────────────────────────────────────────────────────────────────
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 5001))

@@ -381,7 +381,12 @@
       </div>
       <span class="nav-label">Email Audit</span>
     </button>
-
+    <button class="nav-item" id="nav-icp" onclick="switchTool('icp')">
+      <div class="nav-icon">
+        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+    </div>
+    <span class="nav-label">ICP Builder</span>
+  </button>
     <div class="sidebar-footer">
       <p>Powered by Groq AI<br>Free · Unlimited</p>
       <a href="/reset" class="reset-link" onclick="return confirm('Reset API key?')" style="display:inline-block;margin-top:8px;color:rgba(255,255,255,0.2);font-size:11px;text-decoration:none;">⚙ Reset key</a>
@@ -404,7 +409,48 @@
         </button>
       </div>
     </div>
-
+    <!-- ══ TOOL: ICP Builder ══ -->
+<div class="tool-panel" id="panel-icp">
+  <div class="input-panel">
+    <div class="ip-body">
+      <div class="field">
+        <label>What you sell</label>
+        <input class="f-input" id="icp-product" placeholder="Cold email software for B2B SaaS companies" oninput="ls('icp-product')"/>
+      </div>
+      <div class="field">
+        <label>Price point</label>
+        <input class="f-input" id="icp-price_point" placeholder="$99/mo, $500 one-time, $5,000 project..." oninput="ls('icp-price_point')"/>
+      </div>
+      <div class="field">
+        <label>Your best existing customers <span style="font-weight:400;color:#bbb;text-transform:none;letter-spacing:0;">(optional)</span></label>
+        <textarea class="f-input f-textarea" id="icp-best_customers" placeholder="e.g. 10-person SaaS startups doing $500k–$2M ARR, founder-led sales, selling to SMBs..." rows="3" oninput="ls('icp-best_customers')"></textarea>
+      </div>
+      <div class="field" style="background:#f0f7ff;border:1px solid #bfdbfe;border-radius:9px;padding:11px 13px;">
+        <p style="font-size:12px;color:#1e40af;line-height:1.55;">💡 Use this before any other tool. A sharp ICP makes every email, opener, and subject line dramatically more effective.</p>
+      </div>
+    </div>
+    <div class="ip-footer">
+      <button class="gen-btn" id="icp-genBtn" onclick="generate('icp')">
+        <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        Build ICP <span class="kbd">⌘↵</span>
+      </button>
+    </div>
+  </div>
+  <div class="output-panel" id="icp-output">
+    <div class="empty-state" id="icp-empty">
+      <div class="empty-icon">
+        <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" stroke="#ccc" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="empty-arrow">← Describe your product to build your ICP</div>
+    </div>
+    <div class="error-bar" id="icp-error"></div>
+    <div class="stream-box" id="icp-stream">
+      <div class="stream-header"><div class="mini-spin"></div><span class="stream-label">Building your ICP...</span><span class="stream-chars" id="icp-chars">0 chars</span></div>
+      <div class="stream-text" id="icp-streamtext"><span class="cursor"></span></div>
+    </div>
+    <div class="cards-grid" id="icp-cards"></div>
+  </div>
+</div>
     <!-- ── Tool panels wrapper ── -->
     <div class="body-split" id="bodyWrap">
 
@@ -713,6 +759,7 @@ const TOOLS = {
   reply:     { title: 'Reply Handler',      desc: 'Write the perfect response to any reply you get',           endpoint: '/stream/reply' },
   abtester:  { title: 'A/B Subject Tester', desc: 'Test two subject lines with different psychological angles', endpoint: '/stream/abtester' },
   audit:     { title: 'Email Audit',        desc: 'Score your cold email and get a rewritten version',         endpoint: '/stream/audit' },
+  icp:       { title: 'ICP Builder',        desc: 'Define your ideal customer profile to sharpen every tool',  endpoint: '/stream/icp' },
 };
 
 const tones = { email: 'professional' };
@@ -769,9 +816,8 @@ document.addEventListener('keydown', e => {
 
 // ── Tool prefix map ────────────────────────────────────────────
 function toolPrefix(t) {
-  return { email:'e', sequence:'s', linkedin:'l', objection:'o', subjects:'sub', opener:'op', reply:'r', abtester:'ab', audit:'au' }[t];
+    return { email:'e', sequence:'s', linkedin:'l', objection:'o', subjects:'sub', opener:'op', reply:'r', abtester:'ab', audit:'au', icp:'icp' }[t];
 }
-
 // ── Payload builders ────────────────────────────────────────────
 function getVal(id) { return (document.getElementById(id)?.value || '').trim(); }
 
@@ -786,6 +832,7 @@ function buildPayload(tool) {
     case 'reply':     return { original_email:getVal('r-original_email'), their_reply:getVal('r-their_reply'), your_service:getVal('r-your_service') };
     case 'abtester':  return { email_body:getVal('ab-email_body'), audience:getVal('ab-audience'), goal:getVal('ab-goal') };
     case 'audit':     return { email: getVal('au-email') };
+    case 'icp':       return { product: getVal('icp-product'), price_point: getVal('icp-price_point'), best_customers: getVal('icp-best_customers') };
   }
 }
 
@@ -800,6 +847,7 @@ function requiredFields(tool) {
     reply:     ['r-original_email','r-their_reply','r-your_service'],
     abtester:  ['ab-email_body','ab-audience','ab-goal'],
     audit:     ['au-email'],
+    icp:       ['icp-product', 'icp-price_point'],
   }[tool];
 }
 
@@ -876,7 +924,7 @@ async function generate(tool) {
 }
 
 function getBtnLabel(t) {
-  return { email:'Generate', sequence:'Build Sequence', linkedin:'Generate Messages', objection:'Crush Objection', subjects:'Generate 10 Lines', opener:'Generate Openers', reply:'Write Replies', abtester:'Test Subject Lines', audit:'Audit This Email' }[t];
+  return { email:'Generate', sequence:'Build Sequence', linkedin:'Generate Messages', objection:'Crush Objection', subjects:'Generate 10 Lines', opener:'Generate Openers', reply:'Write Replies', abtester:'Test Subject Lines', audit:'Audit This Email', icp:'Build ICP' }[t];
 }
 
 // ── Render cards ──────────────────────────────────────────────
@@ -917,7 +965,7 @@ function renderCards(tool, p, fullText) {
     return;
   }
 
-  const variations = fullText.split(/\n---\n/).map(v => v.trim()).filter(Boolean);
+  const variations = fullText.split(/\n\s*---\s*\n/).map(v => v.trim()).filter(Boolean);
 
   variations.forEach((block, i) => {
     const lines = block.split('\n');
@@ -1034,10 +1082,32 @@ async function scrapeURL() {
       return;
     }
     const data = d.data;
-    if (data.contact_name) { document.getElementById('e-target_name').value = data.contact_name; ls('e-target_name'); }
-    if (data.company) { document.getElementById('e-target_company').value = data.company; ls('e-target_company'); }
-    if (data.pain_points) { document.getElementById('e-target_pain').value = data.pain_points; ls('e-target_pain'); }
-    status.textContent = '✓ Fields filled — review and adjust before generating.';
+    let filled = [];
+
+    // Only fill contact name if it looks like a real person (has a space, not same as company)
+    if (data.contact_name && data.contact_name.trim().includes(' ') && data.contact_name !== data.company) {
+      document.getElementById('e-target_name').value = data.contact_name;
+      ls('e-target_name');
+      filled.push('name');
+    }
+
+    if (data.company) {
+      document.getElementById('e-target_company').value = data.company;
+      ls('e-target_company');
+      filled.push('company');
+    }
+
+    if (data.pain_points) {
+      document.getElementById('e-target_pain').value = data.pain_points;
+      ls('e-target_pain');
+      filled.push('reason');
+    }
+
+    const filledMsg = filled.length > 0
+      ? `✓ Filled: ${filled.join(', ')} — review before generating.`
+      : '✓ Found company — fill in the remaining fields manually.';
+
+    status.textContent = filledMsg;
     status.style.color = '#16a34a';
   } catch(e) {
     status.textContent = 'Connection error. Is the app running?';

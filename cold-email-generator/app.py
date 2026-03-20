@@ -1,9 +1,14 @@
 from flask import Flask, render_template, request, jsonify, Response, stream_with_context, redirect
 from groq import Groq
-import os, json, threading, webbrowser, time
+import os, json, threading, webbrowser, time, sys
 
 app = Flask(__name__)
 CONFIG_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "config.json")
+
+from license import check_license
+if not check_license():
+    print("\n  ✗ License invalid. Please contact support.\n")
+    sys.exit(1)
 
 # ── Config helpers ────────────────────────────────────────────────────────────
 
@@ -73,41 +78,37 @@ def stream():
     num = min(int(data.get("num_variations", 3)), 5)
     tone = data.get("tone", "professional")
 
-    prompt = f"""Write {num} complete cold email(s). Each must be a full, ready-to-send professional email — not a fragment, not an outline.
+    prompt = f"""You are writing cold emails on behalf of {vals['sender_name']}.
 
-SENDER:
-- Name: {vals['sender_name']}
-- What they offer: {vals['sender_service']}
-- The result clients get: {vals['sender_value']}
+CONTEXT:
+- Sender offers: {vals['sender_service']}
+- The result the recipient gets: {vals['sender_value']}
+- Recipient name: {vals['target_name']}
+- Recipient company: {vals['target_company']}
+- Reason for reaching out: {vals['target_pain']}
+- Tone: {tone}
 
-RECIPIENT:
-- Name: {vals['target_name']}
-- Company: {vals['target_company']}
-- Why reaching out: {vals['target_pain']}
+Write {num} cold email variation(s). Each must be complete and ready to send.
 
-TONE: {tone}
+STRICT RULES — violating any of these makes the email unusable:
+- Subject line first, format exactly: Subject: [subject]
+- Greeting next: Hi {vals['target_name']}, or Hey {vals['target_name']},
+- EMAIL BODY: 75–110 words MAX. Not a word more. Count carefully.
+- One paragraph only. No bullet points. No line breaks mid-email.
+- First sentence must be about THEM — their business, their situation, their problem. Not about the sender.
+- Never mention the sender's name until the sign-off.
+- End with one CTA — a question or a specific ask. Not two options.
+- Sign off: {vals['sender_name']}
 
-STRUCTURE OF EACH EMAIL:
-1. Subject line — format: "Subject: [subject here]"
-2. Greeting — "Hi [Name]," or "Hey [Name],"
-3. Opening sentence — reference something specific and real about their business
-4. 2–3 sentences connecting their problem to your solution
-5. One concrete outcome or result they can expect
-6. A single clear call to action (book a 15-min call, reply to this email, etc.)
-7. Sign-off with the sender's name
+BANNED PHRASES (do not use any of these):
+"hope this finds you well", "I wanted to reach out", "my name is", "I came across",
+"I noticed that", "as a leading", "in today's competitive", "I am writing to",
+"just following up", "touching base", "I believe", "leverage", "synergy",
+"innovative solutions", "optimize your", "streamline your"
 
-LENGTH: 120–180 words per email body (not counting subject line)
+Each variation must use a completely different opening angle and hook.
 
-NEVER USE:
-- "hope this finds you well"
-- "I wanted to reach out"
-- "my name is"
-- "I came across your"
-- "I noticed that"
-- Generic filler openers
-
-Each variation must open from a completely different angle.
-Separate emails with a line containing only: ---"""
+Separate each email with exactly: ---"""
 
     def event_stream():
         try:
