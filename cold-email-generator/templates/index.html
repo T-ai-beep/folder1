@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ReachFlow</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%237c3aed'/><path d='M58 12L28 54h24L36 88 72 44H50z' fill='white'/></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --brand: #7c3aed;
+      --brand-light: rgba(124,58,237,0.12);
+      --sidebar-bg: #0d0d10;
+      --sidebar-border: rgba(255,255,255,0.07);
+      --input-bg: rgba(255,255,255,0.04);
+      --input-border: rgba(255,255,255,0.09);
+      --input-focus-border: rgba(124,58,237,0.65);
+      --input-focus-shadow: rgba(124,58,237,0.13);
+      --input-error-border: rgba(239,68,68,0.7);
+      --input-error-shadow: rgba(239,68,68,0.15);
+      --muted: rgba(255,255,255,0.35);
+      --dim: rgba(255,255,255,0.6);
+    }
+    html, body { height: 100%; font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+
+    /* ── Layout ─────────────────────────────────────── */
+    .layout { display: flex; height: 100vh; overflow: hidden; background: #f5f5f7; }
+
+    /* ── Sidebar ─────────────────────────────────────── */
+    .sidebar {
+      width: 340px;
+      min-width: 340px;
+      background: var(--sidebar-bg);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      scrollbar-width: none;
+      flex-shrink: 0;
+    }
+    .sidebar::-webkit-scrollbar { display: none; }
+
+    .sidebar-top {
+      padding: 22px 24px 18px;
+      border-bottom: 1px solid var(--sidebar-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand { display: flex; align-items: center; gap: 9px; }
+    .brand-mark {
+      width: 30px; height: 30px;
+      background: linear-gradient(135deg, #7c3aed, #4338ca);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .brand-name { font-size: 15px; font-weight: 700; color: white; letter-spacing: -0.02em; }
+    .settings-link {
+      font-size: 11px;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 4px 8px;
+      border-radius: 6px;
+      transition: color 0.15s, background 0.15s;
+    }
+    .settings-link:hover { color: rgba(255,255,255,0.6); background: rgba(255,255,255,0.05); }
+
+    /* Mobile sidebar accordion toggle */
+    .sidebar-toggle {
+      display: none;
+      width: 100%;
+      background: none;
+      border: none;
+      border-bottom: 1px solid var(--sidebar-border);
+      padding: 14px 24px;
+      color: rgba(255,255,255,0.55);
+      font-size: 12px;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      text-align: left;
+      align-items: center;
+      justify-content: space-between;
+      transition: color 0.15s;
+      letter-spacing: 0.02em;
+    }
+    .sidebar-toggle:hover { color: rgba(255,255,255,0.8); }
+    .sidebar-toggle-chevron {
+      display: inline-block;
+      transition: transform 0.25s cubic-bezier(.16,1,.3,1);
+    }
+    .sidebar-toggle.open .sidebar-toggle-chevron { transform: rotate(180deg); }
+
+    .sidebar-body { padding: 20px 24px 28px; flex: 1; }
+
+    .section-title {
+      font-size: 10px;
+      font-weight: 700;
+      color: rgba(124,58,237,0.7);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 14px;
+    }
+
+    .field { margin-bottom: 14px; }
+    .field label {
+      display: block;
+      font-size: 11.5px;
+      font-weight: 500;
+      color: var(--muted);
+      margin-bottom: 6px;
+      transition: color 0.15s;
+    }
+    .field-row { display: flex; gap: 10px; margin-bottom: 14px; }
+    .field-row .field { flex: 1; margin-bottom: 0; }
+
+    .s-input {
+      width: 100%;
+      background: var(--input-bg);
+      border: 1px solid var(--input-border);
+      border-radius: 8px;
+      padding: 9px 12px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.85);
+      font-family: 'Inter', sans-serif;
+      outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
+    }
+    .s-input::placeholder { color: rgba(255,255,255,0.17); }
+    .s-input:focus {
+      border-color: var(--input-focus-border);
+      background: rgba(124,58,237,0.06);
+      box-shadow: 0 0 0 3px var(--input-focus-shadow);
+    }
+    .s-input.field-error {
+      border-color: var(--input-error-border);
+      background: rgba(239,68,68,0.05);
+      box-shadow: 0 0 0 3px var(--input-error-shadow);
+      animation: shake 0.38s cubic-bezier(.36,.07,.19,.97) both;
+    }
+    @keyframes shake {
+      10%,90% { transform: translateX(-2px); }
+      20%,80% { transform: translateX(3px); }
+      30%,50%,70% { transform: translateX(-3px); }
+      40%,60% { transform: translateX(3px); }
+    }
+
+    .divider { border: none; border-top: 1px solid var(--sidebar-border); margin: 18px 0; }
+
+    /* Tone pills */
+    .tone-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .tone-pill {
+      background: var(--input-bg);
+      border: 1px solid var(--input-border);
+      border-radius: 8px;
+      padding: 9px 10px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--dim);
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      transition: all 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      text-align: left;
+    }
+    .tone-pill:hover { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.8); }
+    .tone-pill.selected {
+      background: rgba(124,58,237,0.15);
+      border-color: rgba(124,58,237,0.5);
+      color: #c4b5fd;
+    }
+    .tone-icon { font-size: 14px; line-height: 1; }
+
+    /* Variations stepper */
+    .stepper {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      background: var(--input-bg);
+      border: 1px solid var(--input-border);
+      border-radius: 8px;
+      overflow: hidden;
+      width: fit-content;
+    }
+    .stepper-btn {
+      background: none;
+      border: none;
+      color: var(--dim);
+      font-size: 16px;
+      width: 36px; height: 36px;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      transition: color 0.15s, background 0.15s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .stepper-btn:hover { color: white; background: rgba(255,255,255,0.07); }
+    .stepper-val {
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.8);
+      width: 32px;
+      text-align: center;
+    }
+
+    /* Generate button + shortcut hint */
+    .gen-btn-wrap { margin-top: 20px; position: relative; }
+    .gen-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #7c3aed 0%, #4338ca 100%);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 13px;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      transition: opacity 0.15s, transform 0.1s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      letter-spacing: -0.01em;
+      box-shadow: 0 4px 20px rgba(124,58,237,0.3);
+    }
+    .gen-btn:hover:not(:disabled) { opacity: 0.9; }
+    .gen-btn:active:not(:disabled) { transform: scale(0.99); }
+    .gen-btn:disabled { opacity: 0.45; cursor: not-allowed; box-shadow: none; }
+    .shortcut-hint {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      margin-top: 8px;
+      font-size: 10.5px;
+      color: rgba(255,255,255,0.22);
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      user-select: none;
+    }
+    .shortcut-key {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 4px;
+      padding: 1px 5px;
+      font-size: 10px;
+      font-family: 'Inter', sans-serif;
+      color: rgba(255,255,255,0.3);
+    }
+
+    /* ── Main panel ─────────────────────────────────────── */
+    .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+
+    .main-header {
+      background: white;
+      border-bottom: 1px solid #e8e8e8;
+      padding: 16px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+      gap: 12px;
+    }
+    .main-header-left h2 { font-size: 14px; font-weight: 600; color: #111; }
+    .main-header-left p { font-size: 12px; color: #aaa; margin-top: 1px; }
+    .main-header-right { display: flex; align-items: center; gap: 10px; }
+
+    .live-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: #888;
+      font-weight: 500;
+    }
+    .live-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #22c55e;
+      animation: livepulse 2.5s ease-in-out infinite;
+    }
+    @keyframes livepulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.85)} }
+
+    /* Copy All button */
+    .copy-all-btn {
+      display: none;
+      align-items: center;
+      gap: 6px;
+      background: white;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 7px 14px;
+      font-size: 12.5px;
+      font-weight: 500;
+      color: #555;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      transition: all 0.15s;
+    }
+    .copy-all-btn:hover { background: #f7f7f7; color: #111; border-color: #ccc; }
+    .copy-all-btn.copied { background: #f0fdf4; color: #16a34a; border-color: #bbf7d0; }
+
+    .main-body { flex: 1; overflow-y: auto; padding: 28px; }
+    .main-body::-webkit-scrollbar { width: 5px; }
+    .main-body::-webkit-scrollbar-track { background: transparent; }
+    .main-body::-webkit-scrollbar-thumb { background: #ddd; border-radius: 99px; }
+
+    /* ── Empty state ─────────────────────────────────────── */
+    .empty {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      padding-bottom: 60px;
+    }
+    .empty-dashed {
+      border: 2px dashed #dde0e7;
+      border-radius: 20px;
+      padding: 44px 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 14px;
+      max-width: 340px;
+      background: rgba(255,255,255,0.6);
+    }
+    .empty-icon {
+      width: 52px; height: 52px;
+      background: white;
+      border: 1px solid #e8e8e8;
+      border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+      margin-bottom: 2px;
+    }
+    .empty h3 { font-size: 15px; font-weight: 600; color: #444; }
+    .empty p { font-size: 13px; color: #aaa; line-height: 1.55; }
+    .empty-arrow {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+      font-size: 12.5px;
+      color: #bbb;
+      font-weight: 500;
+    }
+    .empty-arrow svg { flex-shrink: 0; }
+
+    /* ── Stream box ─────────────────────────────────────── */
+    .stream-box {
+      display: none;
+      background: white;
+      border: 1px solid #e8e8e8;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 1px 8px rgba(0,0,0,0.04);
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fadeIn 0.3s ease forwards;
+    }
+    @keyframes fadeIn { to { opacity: 1; } }
+    .stream-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+    .stream-header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--brand);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+    }
+    .stream-char-count {
+      font-size: 11px;
+      font-weight: 500;
+      color: #bbb;
+      font-family: 'Inter', sans-serif;
+      letter-spacing: 0;
+      text-transform: none;
+      transition: color 0.2s;
+    }
+    .mini-spinner {
+      width: 13px; height: 13px;
+      border: 1.5px solid #e0d9f9;
+      border-top-color: var(--brand);
+      border-radius: 50%;
+      animation: spin 0.65s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .stream-text {
+      font-size: 13.5px;
+      line-height: 1.75;
+      color: #444;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: 'Inter', sans-serif;
+    }
+    .cursor {
+      display: inline-block;
+      width: 2px; height: 15px;
+      background: var(--brand);
+      margin-left: 1px;
+      vertical-align: text-bottom;
+      animation: blink 1s step-end infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    /* ── Email cards ─────────────────────────────────────── */
+    .cards { display: flex; flex-direction: column; gap: 14px; }
+
+    .email-card {
+      background: white;
+      border: 1px solid #e8e8e8;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+      opacity: 0;
+      transform: translateY(12px);
+      animation: fadeup 0.45s cubic-bezier(.16,1,.3,1) forwards;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .email-card:hover {
+      border-color: #d0d0d8;
+      box-shadow: 0 3px 16px rgba(0,0,0,0.07);
+    }
+    @keyframes fadeup {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .card-top {
+      padding: 13px 18px;
+      border-bottom: 1px solid #f2f2f2;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #fafafa;
+    }
+    .card-meta { display: flex; align-items: center; gap: 10px; }
+    .card-num {
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--brand);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .word-count {
+      font-size: 11px;
+      color: #bbb;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 7px;
+      background: #f2f2f5;
+      border-radius: 99px;
+      transition: background 0.15s, color 0.15s;
+    }
+    .word-count.pulse {
+      animation: badgepulse 0.55s cubic-bezier(.16,1,.3,1) both;
+    }
+    @keyframes badgepulse {
+      0%   { transform: scale(1); background: rgba(124,58,237,0.12); color: #7c3aed; }
+      50%  { transform: scale(1.12); background: rgba(124,58,237,0.18); color: #7c3aed; }
+      100% { transform: scale(1); background: #f2f2f5; color: #bbb; }
+    }
+
+    .copy-btn {
+      background: white;
+      border: 1px solid #e0e0e0;
+      border-radius: 7px;
+      padding: 5px 14px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #666;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      transition: all 0.15s;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .copy-btn:hover { background: #f5f5f5; color: #222; }
+    .copy-btn.copied { background: #f0fdf4; color: #16a34a; border-color: #bbf7d0; }
+
+    .card-subject {
+      padding: 12px 18px;
+      border-bottom: 1px solid #f5f5f5;
+    }
+    .subject-label { font-size: 10px; font-weight: 700; color: #bbb; text-transform: uppercase; letter-spacing: 0.08em; display: block; margin-bottom: 3px; }
+    .subject-text { font-size: 13.5px; font-weight: 600; color: #111; }
+
+    .card-body { padding: 18px; }
+    .card-body pre { font-size: 13.5px; line-height: 1.75; color: #333; white-space: pre-wrap; word-break: break-word; font-family: 'Inter', sans-serif; }
+
+    /* ── Error ─────────────────────────────────────── */
+    .error-bar {
+      display: none;
+      background: #fff5f5;
+      border: 1px solid #fecaca;
+      border-radius: 11px;
+      padding: 13px 16px;
+      font-size: 13.5px;
+      color: #dc2626;
+      margin-bottom: 16px;
+    }
+
+    /* ── Spinner utility ─────────────────────────────── */
+    .spin { animation: spin 0.75s linear infinite; }
+
+    /* ── Responsive — mobile: sidebar becomes top accordion ── */
+    @media (max-width: 767px) {
+      .layout {
+        flex-direction: column;
+        height: auto;
+        min-height: 100vh;
+        overflow: visible;
+      }
+      .sidebar {
+        width: 100%;
+        min-width: 0;
+        overflow: visible;
+      }
+      .sidebar-top {
+        /* Keep the brand header visible always */
+      }
+      .sidebar-toggle {
+        display: flex;
+      }
+      .sidebar-body {
+        overflow: hidden;
+        max-height: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+        transition: max-height 0.4s cubic-bezier(.16,1,.3,1), padding 0.3s ease;
+      }
+      .sidebar-body.open {
+        max-height: 1200px;
+        padding-top: 20px;
+        padding-bottom: 28px;
+      }
+      .main { overflow: visible; }
+      .main-body { overflow: visible; padding: 18px; }
+      .main-header { padding: 14px 18px; }
+      .copy-all-btn span.copy-all-label { display: none; }
+    }
+  </style>
+</head>
+<body>
+<div class="layout">
+
+  <!-- ── Sidebar ── -->
+  <aside class="sidebar">
+    <div class="sidebar-top">
+      <div class="brand">
+        <div class="brand-mark">
+          <svg width="15" height="15" fill="none" viewBox="0 0 24 24">
+            <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <span class="brand-name">ReachFlow</span>
+      </div>
+      <a href="/reset" class="settings-link" onclick="return confirm('Reset API key?')">&#9881; Reset key</a>
+    </div>
+
+    <!-- Mobile accordion toggle -->
+    <button class="sidebar-toggle" id="sidebarToggle" onclick="toggleSidebar()">
+      <span>Fill in your details</span>
+      <span class="sidebar-toggle-chevron">
+        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+        </svg>
+      </span>
+    </button>
+
+    <div class="sidebar-body" id="sidebarBody">
+
+      <!-- You -->
+      <div class="section-title">About You</div>
+      <div class="field-row">
+        <div class="field">
+          <label for="sender_name">Your name</label>
+          <input id="sender_name" class="s-input" type="text" placeholder="Alex Johnson" autocomplete="off"/>
+        </div>
+      </div>
+      <div class="field">
+        <label for="sender_service">What you sell</label>
+        <input id="sender_service" class="s-input" type="text" placeholder="Cold outreach for SaaS founders" autocomplete="off"/>
+      </div>
+      <div class="field">
+        <label for="sender_value">What do they get?</label>
+        <input id="sender_value" class="s-input" type="text" placeholder="Clients close 30% more deals in 60 days" autocomplete="off"/>
+      </div>
+
+      <hr class="divider"/>
+
+      <!-- Target -->
+      <div class="section-title">Your Target</div>
+      <div class="field-row">
+        <div class="field">
+          <label for="target_name">Their name</label>
+          <input id="target_name" class="s-input" type="text" placeholder="Sarah Lee" autocomplete="off"/>
+        </div>
+        <div class="field">
+          <label for="target_company">Company</label>
+          <input id="target_company" class="s-input" type="text" placeholder="Bloom Bakery" autocomplete="off"/>
+        </div>
+      </div>
+      <div class="field">
+        <label for="target_pain">Why you're reaching out</label>
+        <input id="target_pain" class="s-input" type="text" placeholder="Their site is outdated and they're losing leads to competitors" autocomplete="off"/>
+      </div>
+
+      <hr class="divider"/>
+
+      <!-- Tone -->
+      <div class="section-title">Tone</div>
+      <div class="tone-grid">
+        <button class="tone-pill selected" data-tone="professional" onclick="selectTone(this)">
+          <span class="tone-icon">&#128188;</span> Professional
+        </button>
+        <button class="tone-pill" data-tone="casual and friendly" onclick="selectTone(this)">
+          <span class="tone-icon">&#9749;</span> Casual
+        </button>
+        <button class="tone-pill" data-tone="direct and bold" onclick="selectTone(this)">
+          <span class="tone-icon">&#9889;</span> Direct
+        </button>
+        <button class="tone-pill" data-tone="warm and conversational" onclick="selectTone(this)">
+          <span class="tone-icon">&#129309;</span> Warm
+        </button>
+      </div>
+
+      <hr class="divider"/>
+
+      <!-- Variations -->
+      <div class="section-title">Variations</div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="stepper">
+          <button class="stepper-btn" onclick="changeCount(-1)">&#8722;</button>
+          <span class="stepper-val" id="countVal">3</span>
+          <button class="stepper-btn" onclick="changeCount(1)">+</button>
+        </div>
+        <span style="font-size:12px;color:rgba(255,255,255,0.3);">email drafts</span>
+      </div>
+
+      <div class="gen-btn-wrap">
+        <button id="genBtn" class="gen-btn" onclick="generate()">
+          <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+          </svg>
+          Generate Emails
+        </button>
+        <div class="shortcut-hint" id="shortcutHint">
+          <!-- populated by JS based on OS -->
+        </div>
+      </div>
+
+    </div>
+  </aside>
+
+  <!-- ── Main ── -->
+  <main class="main">
+    <div class="main-header">
+      <div class="main-header-left">
+        <h2>Generated Emails</h2>
+        <p>Ready to copy and send</p>
+      </div>
+      <div class="main-header-right">
+        <button class="copy-all-btn" id="copyAllBtn" onclick="copyAll()">
+          <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"></path>
+          </svg>
+          <span class="copy-all-label">Copy All</span>
+        </button>
+        <div class="live-badge">
+          <div class="live-dot"></div>
+          Live
+        </div>
+      </div>
+    </div>
+
+    <div class="main-body" id="mainBody">
+
+      <div id="empty" class="empty">
+        <div class="empty-dashed">
+          <div class="empty-icon">
+            <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+              <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke="#ccc" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3>No emails yet</h3>
+          <p>Fill in your details and click Generate to create personalized cold emails.</p>
+          <div class="empty-arrow">
+            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="color:#ccc;">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+            </svg>
+            Fill in your details to get started
+          </div>
+        </div>
+      </div>
+
+      <div id="errorBar" class="error-bar"></div>
+
+      <div id="streamBox" class="stream-box">
+        <div class="stream-header">
+          <div class="stream-header-left">
+            <div class="mini-spinner"></div>
+            <span id="streamLabel">Writing your emails...</span>
+          </div>
+          <span class="stream-char-count" id="streamCharCount"></span>
+        </div>
+        <div id="streamText" class="stream-text"><span class="cursor"></span></div>
+      </div>
+
+      <div id="cards" class="cards"></div>
+
+    </div>
+  </main>
+
+</div>
+
+<script>
+  // ─── State ────────────────────────────────────────────────
+  let selectedTone = "professional";
+  let varCount = 3;
+  let lastFullText = "";
+
+  // ─── localStorage persistence ──────────────────────────────
+  const FIELD_IDS = ["sender_name","sender_service","sender_value","target_name","target_company","target_pain"];
+  const LS_PREFIX = "reachflow_";
+
+  function saveField(id) {
+    const val = document.getElementById(id).value;
+    try { localStorage.setItem(LS_PREFIX + id, val); } catch(e) {}
+  }
+
+  function restoreFields() {
+    FIELD_IDS.forEach(id => {
+      try {
+        const saved = localStorage.getItem(LS_PREFIX + id);
+        if (saved !== null) document.getElementById(id).value = saved;
+      } catch(e) {}
+    });
+    // Restore tone
+    try {
+      const tone = localStorage.getItem(LS_PREFIX + "tone");
+      if (tone) {
+        const pill = document.querySelector(`.tone-pill[data-tone="${tone}"]`);
+        if (pill) {
+          document.querySelectorAll(".tone-pill").forEach(p => p.classList.remove("selected"));
+          pill.classList.add("selected");
+          selectedTone = tone;
+        }
+      }
+    } catch(e) {}
+    // Restore varCount
+    try {
+      const count = localStorage.getItem(LS_PREFIX + "varCount");
+      if (count) {
+        varCount = Math.max(1, Math.min(5, parseInt(count, 10) || 3));
+        document.getElementById("countVal").textContent = varCount;
+      }
+    } catch(e) {}
+  }
+
+  function wireFieldPersistence() {
+    FIELD_IDS.forEach(id => {
+      document.getElementById(id).addEventListener("input", () => saveField(id));
+    });
+  }
+
+  // ─── Keyboard shortcut ─────────────────────────────────────
+  const isMac = navigator.platform.toUpperCase().indexOf("MAC") >= 0;
+
+  function renderShortcutHint() {
+    const hint = document.getElementById("shortcutHint");
+    if (isMac) {
+      hint.innerHTML = '<span class="shortcut-key">&#8984;</span><span style="font-size:10.5px;color:rgba(255,255,255,0.22);">+</span><span class="shortcut-key">&#9166;</span><span style="margin-left:4px;">to generate</span>';
+    } else {
+      hint.innerHTML = '<span class="shortcut-key">Ctrl</span><span style="font-size:10.5px;color:rgba(255,255,255,0.22);">+</span><span class="shortcut-key">Enter</span><span style="margin-left:4px;">to generate</span>';
+    }
+  }
+
+  document.addEventListener("keydown", function(e) {
+    const isCmd = isMac ? e.metaKey : e.ctrlKey;
+    if (isCmd && e.key === "Enter") {
+      e.preventDefault();
+      const btn = document.getElementById("genBtn");
+      if (!btn.disabled) generate();
+    }
+  });
+
+  // ─── Tone + count controls ─────────────────────────────────
+  function selectTone(el) {
+    document.querySelectorAll(".tone-pill").forEach(p => p.classList.remove("selected"));
+    el.classList.add("selected");
+    selectedTone = el.dataset.tone;
+    try { localStorage.setItem(LS_PREFIX + "tone", selectedTone); } catch(e) {}
+  }
+
+  function changeCount(delta) {
+    varCount = Math.max(1, Math.min(5, varCount + delta));
+    document.getElementById("countVal").textContent = varCount;
+    try { localStorage.setItem(LS_PREFIX + "varCount", varCount); } catch(e) {}
+  }
+
+  // ─── Mobile sidebar accordion ──────────────────────────────
+  function toggleSidebar() {
+    const body = document.getElementById("sidebarBody");
+    const toggle = document.getElementById("sidebarToggle");
+    const isOpen = body.classList.contains("open");
+    body.classList.toggle("open", !isOpen);
+    toggle.classList.toggle("open", !isOpen);
+  }
+
+  // ─── Input validation ──────────────────────────────────────
+  function validateFields() {
+    let firstError = null;
+    FIELD_IDS.forEach(id => {
+      const input = document.getElementById(id);
+      if (!input.value.trim()) {
+        input.classList.remove("field-error");
+        // Force reflow so re-adding the class re-triggers animation
+        void input.offsetWidth;
+        input.classList.add("field-error");
+        input.addEventListener("input", function clearErr() {
+          input.classList.remove("field-error");
+          input.removeEventListener("input", clearErr);
+        });
+        if (!firstError) firstError = input;
+      }
+    });
+    if (firstError) {
+      firstError.focus();
+      return false;
+    }
+    return true;
+  }
+
+  // ─── Generate ──────────────────────────────────────────────
+  async function generate() {
+    if (!validateFields()) return;
+
+    const btn = document.getElementById("genBtn");
+    const streamBox = document.getElementById("streamBox");
+    const streamText = document.getElementById("streamText");
+    const streamLabel = document.getElementById("streamLabel");
+    const streamCharCount = document.getElementById("streamCharCount");
+    const cards = document.getElementById("cards");
+    const empty = document.getElementById("empty");
+    const errorBar = document.getElementById("errorBar");
+    const copyAllBtn = document.getElementById("copyAllBtn");
+
+    // Reset UI
+    btn.disabled = true;
+    document.title = 'Generating... | ReachFlow';
+    btn.innerHTML = `<svg class="spin" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg> Generating...`;
+
+    empty.style.display = "none";
+    errorBar.style.display = "none";
+    cards.innerHTML = "";
+    copyAllBtn.style.display = "none";
+    lastFullText = "";
+
+    // Reset and show stream box with fade-in
+    streamBox.style.animation = "none";
+    streamBox.style.opacity = "0";
+    streamText.innerHTML = '<span class="cursor"></span>';
+    streamLabel.textContent = "Writing your emails...";
+    streamCharCount.textContent = "";
+    streamBox.style.display = "block";
+    // Trigger reflow then re-apply animation
+    void streamBox.offsetWidth;
+    streamBox.style.animation = "fadeIn 0.3s ease forwards";
+
+    const payload = {
+      sender_name:    document.getElementById("sender_name").value.trim(),
+      sender_service: document.getElementById("sender_service").value.trim(),
+      sender_value:   document.getElementById("sender_value").value.trim(),
+      target_name:    document.getElementById("target_name").value.trim(),
+      target_company: document.getElementById("target_company").value.trim(),
+      target_pain:    document.getElementById("target_pain").value.trim(),
+      tone: selectedTone,
+      num_variations: varCount,
+    };
+
+    let fullText = "";
+
+    try {
+      const response = await fetch("/stream", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        const d = await response.json();
+        showError(d.error || "Something went wrong."); return;
+      }
+
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let buf = "";
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        buf += decoder.decode(value, { stream: true });
+        const lines = buf.split("\n");
+        buf = lines.pop();
+
+        for (const line of lines) {
+          if (!line.startsWith("data: ")) continue;
+          let msg;
+          try { msg = JSON.parse(line.slice(6)); } catch { continue; }
+          if (msg.error) { showError(msg.error); return; }
+          if (msg.done) {
+            streamBox.style.display = "none";
+            lastFullText = fullText;
+            renderCards(fullText);
+            break;
+          }
+          if (msg.t) {
+            fullText += msg.t;
+            streamText.innerHTML = escapeHtml(fullText) + '<span class="cursor"></span>';
+            // Update char count
+            streamCharCount.textContent = `${fullText.length} chars`;
+            streamLabel.textContent = "Writing\u2026";
+          }
+        }
+      }
+
+    } catch (e) {
+      showError("Connection error. Please try again.");
+    } finally {
+      btn.disabled = false;
+      document.title = 'ReachFlow';
+      btn.innerHTML = `<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg> Generate Emails`;
+    }
+  }
+
+  // ─── Render cards ──────────────────────────────────────────
+  function renderCards(fullText) {
+    const container = document.getElementById("cards");
+    const copyAllBtn = document.getElementById("copyAllBtn");
+    const variations = fullText.split(/\n---\n/).map(v => v.trim()).filter(Boolean);
+
+    variations.forEach((email, i) => {
+      const lines = email.split("\n");
+      const subjectLine = lines.find(l => /^subject:/i.test(l)) || "";
+      const subject = subjectLine.replace(/^subject:\s*/i, "").trim();
+      const body = lines.filter(l => !/^subject:/i.test(l)).join("\n").trim();
+      const wordCount = body.split(/\s+/).filter(Boolean).length;
+
+      const card = document.createElement("div");
+      card.className = "email-card";
+      card.style.animationDelay = `${i * 80}ms`;
+
+      const wordBadgeId = `wc-${i}-${Date.now()}`;
+      card.innerHTML = `
+        <div class="card-top">
+          <div class="card-meta">
+            <span class="card-num">Option ${i + 1}</span>
+            <span class="word-count" id="${wordBadgeId}">${wordCount} words</span>
+          </div>
+          <button class="copy-btn" onclick="copyEmail(this)" data-text="${escapeAttr(email)}">
+            <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"></path></svg>
+            Copy
+          </button>
+        </div>
+        ${subject ? `<div class="card-subject"><span class="subject-label">Subject line</span><span class="subject-text">${escapeHtml(subject)}</span></div>` : ""}
+        <div class="card-body"><pre>${escapeHtml(body)}</pre></div>
+      `;
+      container.appendChild(card);
+
+      // Pulse word count badge when card first appears
+      const delay = i * 80 + 200; // after card has faded in
+      setTimeout(() => {
+        const badge = document.getElementById(wordBadgeId);
+        if (badge) {
+          badge.classList.add("pulse");
+          badge.addEventListener("animationend", () => badge.classList.remove("pulse"), { once: true });
+        }
+      }, delay);
+    });
+
+    // Show Copy All button
+    if (variations.length > 0) {
+      copyAllBtn.style.display = "flex";
+      copyAllBtn.classList.remove("copied");
+      copyAllBtn.innerHTML = `<svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"></path></svg><span class="copy-all-label">Copy All</span>`;
+    }
+
+    // Smooth scroll to first card after stagger completes
+    const scrollDelay = variations.length * 80 + 120;
+    setTimeout(() => {
+      const firstCard = container.querySelector(".email-card");
+      if (firstCard) {
+        firstCard.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
+    }, scrollDelay);
+  }
+
+  // ─── Copy individual email ─────────────────────────────────
+  function copyEmail(btn) {
+    navigator.clipboard.writeText(btn.getAttribute("data-text")).then(() => {
+      btn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!`;
+      btn.classList.add("copied");
+      setTimeout(() => {
+        btn.innerHTML = `<svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"></path></svg> Copy`;
+        btn.classList.remove("copied");
+      }, 2000);
+    });
+  }
+
+  // ─── Copy All ─────────────────────────────────────────────
+  function copyAll() {
+    if (!lastFullText) return;
+    const btn = document.getElementById("copyAllBtn");
+    navigator.clipboard.writeText(lastFullText).then(() => {
+      btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg><span class="copy-all-label">Copied!</span>`;
+      btn.classList.add("copied");
+      setTimeout(() => {
+        btn.classList.remove("copied");
+        btn.innerHTML = `<svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"></path></svg><span class="copy-all-label">Copy All</span>`;
+      }, 2000);
+    });
+  }
+
+  // ─── Error display ─────────────────────────────────────────
+  function showError(msg) {
+    const bar = document.getElementById("errorBar");
+    bar.textContent = msg;
+    bar.style.display = "block";
+    document.getElementById("streamBox").style.display = "none";
+    document.getElementById("empty").style.display = "none";
+    const btn = document.getElementById("genBtn");
+    btn.disabled = false;
+    btn.innerHTML = `<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg> Generate Emails`;
+  }
+
+  // ─── Utilities ─────────────────────────────────────────────
+  function escapeHtml(s) {
+    return s
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
+  }
+  function escapeAttr(s) {
+    return s.replace(/"/g, "&quot;").replace(/\n/g, "&#10;");
+  }
+
+  // ─── Init ──────────────────────────────────────────────────
+  restoreFields();
+  wireFieldPersistence();
+  renderShortcutHint();
+</script>
+</body>
+</html>

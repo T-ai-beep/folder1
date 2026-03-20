@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ReachFlow Pro — Setup</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%237c3aed'/><path d='M58 12L28 54h24L36 88 72 44H50z' fill='white'/></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; font-family: 'Inter', sans-serif; background: #09090b; color: white; -webkit-font-smoothing: antialiased; }
+
+    .page { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px; }
+
+    .logo { display: flex; align-items: center; gap: 10px; margin-bottom: 44px; }
+    .logo-mark {
+      width: 38px; height: 38px;
+      background: linear-gradient(135deg, #7c3aed, #4338ca);
+      border-radius: 11px;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 0 1px rgba(124,58,237,0.3), 0 4px 20px rgba(124,58,237,0.25);
+    }
+    .logo-name { font-size: 18px; font-weight: 700; letter-spacing: -0.02em; }
+    .logo-pro {
+      font-size: 10px; font-weight: 700;
+      background: linear-gradient(135deg, #7c3aed, #4338ca);
+      color: white;
+      padding: 2px 7px;
+      border-radius: 99px;
+      letter-spacing: 0.05em;
+    }
+
+    .card {
+      background: #111113;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      padding: 40px;
+      width: 100%;
+      max-width: 460px;
+    }
+
+    .steps { display: flex; align-items: center; margin-bottom: 36px; }
+    .step { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.3); }
+    .step.active { color: white; }
+    .step.done { color: #7c3aed; }
+    .step-num { width: 24px; height: 24px; border-radius: 50%; background: rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; }
+    .step.active .step-num, .step.done .step-num { background: #7c3aed; color: white; }
+    .step-line { flex: 1; height: 1px; background: rgba(255,255,255,0.07); margin: 0 10px; }
+
+    .free-badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.2);
+      color: #4ade80; font-size: 11px; font-weight: 700;
+      padding: 3px 10px; border-radius: 99px; margin-bottom: 16px; letter-spacing: 0.04em;
+    }
+
+    h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 8px; }
+    .subtitle { font-size: 14px; color: rgba(255,255,255,0.4); line-height: 1.55; margin-bottom: 28px; }
+
+    .info-block {
+      background: rgba(124,58,237,0.07);
+      border: 1px solid rgba(124,58,237,0.18);
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin-bottom: 24px;
+    }
+    .info-block p { font-size: 13px; color: rgba(255,255,255,0.65); margin-bottom: 10px; }
+    .info-block ol { padding-left: 18px; }
+    .info-block li { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.85; }
+    .info-block a { color: #a78bfa; text-decoration: none; font-weight: 500; }
+    .info-block a:hover { text-decoration: underline; }
+
+    label { display: block; font-size: 11.5px; font-weight: 600; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 8px; }
+
+    .key-input {
+      width: 100%;
+      background: rgba(255,255,255,0.04);
+      border: 1.5px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 13.5px;
+      color: rgba(255,255,255,0.85);
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+      margin-bottom: 16px;
+    }
+    .key-input::placeholder { color: rgba(255,255,255,0.16); }
+    .key-input:focus { border-color: rgba(124,58,237,0.6); box-shadow: 0 0 0 3px rgba(124,58,237,0.12); }
+
+    .save-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #7c3aed, #4338ca);
+      color: white; border: none; border-radius: 10px;
+      padding: 13px; font-size: 14px; font-weight: 600;
+      font-family: 'Inter', sans-serif; cursor: pointer;
+      transition: opacity 0.15s, transform 0.1s;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      box-shadow: 0 4px 20px rgba(124,58,237,0.3);
+    }
+    .save-btn:hover:not(:disabled) { opacity: 0.88; }
+    .save-btn:active:not(:disabled) { transform: scale(0.99); }
+    .save-btn:disabled { opacity: 0.45; cursor: not-allowed; box-shadow: none; }
+
+    .error {
+      display: none;
+      background: rgba(220,38,38,0.08); border: 1px solid rgba(220,38,38,0.22);
+      border-radius: 9px; padding: 11px 14px;
+      font-size: 13px; color: #f87171; margin-top: 12px;
+    }
+
+    .tools-preview {
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .tools-preview p { font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.25); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 14px; }
+    .tools-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .tool-chip {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 8px;
+      padding: 8px 11px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.35);
+      display: flex; align-items: center; gap: 7px;
+    }
+    .tool-chip svg { opacity: 0.5; flex-shrink: 0; }
+
+    .spinner { width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.25); border-top-color: white; border-radius: 50%; animation: spin 0.65s linear infinite; display: none; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <div class="logo">
+    <div class="logo-mark">
+      <svg width="18" height="18" fill="none" viewBox="0 0 24 24">
+        <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <span class="logo-name">ReachFlow</span>
+    <span class="logo-pro">PRO</span>
+  </div>
+
+  <div class="card">
+    <div class="steps">
+      <div class="step done"><div class="step-num">✓</div>Install</div>
+      <div class="step-line"></div>
+      <div class="step active"><div class="step-num">2</div>API Key</div>
+      <div class="step-line"></div>
+      <div class="step"><div class="step-num">3</div>Done</div>
+    </div>
+
+    <div class="free-badge">
+      <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      FREE API — NO CREDIT CARD
+    </div>
+
+    <h1>Connect your API key</h1>
+    <p class="subtitle">ReachFlow Pro uses Groq's free AI. One key unlocks all 6 tools. Takes 90 seconds to set up.</p>
+
+    <div class="info-block">
+      <p><strong style="color:white;">Get your free Groq key:</strong></p>
+      <ol>
+        <li>Go to <a href="https://console.groq.com/keys" target="_blank">console.groq.com/keys</a></li>
+        <li>Create a free account (no credit card needed)</li>
+        <li>Click <strong style="color:rgba(255,255,255,0.75);">Create API Key</strong></li>
+        <li>Copy and paste it below</li>
+      </ol>
+    </div>
+
+    <label>Your Groq API Key</label>
+    <input id="keyInput" class="key-input" type="password" placeholder="gsk_..." autocomplete="off" spellcheck="false"/>
+
+    <button id="saveBtn" class="save-btn" onclick="saveKey()">
+      <div class="spinner" id="spinner"></div>
+      <span id="btnText">Save & Launch ReachFlow Pro →</span>
+    </button>
+
+    <div id="error" class="error"></div>
+
+    <div class="tools-preview">
+      <p>6 tools included</p>
+      <div class="tools-grid">
+        <div class="tool-chip">
+          <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          Cold Email
+        </div>
+        <div class="tool-chip">
+          <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+          Follow-up Sequence
+        </div>
+        <div class="tool-chip">
+          <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+          LinkedIn Outreach
+        </div>
+        <div class="tool-chip">
+          <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          Objection Crusher
+        </div>
+        <div class="tool-chip">
+          <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14"/></svg>
+          Subject Line Lab
+        </div>
+        <div class="tool-chip">
+          <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+          Opener Generator
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  async function saveKey() {
+    const key = document.getElementById("keyInput").value.trim();
+    if (!key) return;
+    const btn = document.getElementById("saveBtn");
+    const spinner = document.getElementById("spinner");
+    const btnText = document.getElementById("btnText");
+    const error = document.getElementById("error");
+    btn.disabled = true;
+    spinner.style.display = "block";
+    btnText.textContent = "Verifying...";
+    error.style.display = "none";
+    try {
+      const res = await fetch("/setup", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ key }) });
+      const data = await res.json();
+      if (!res.ok || data.error) {
+        error.textContent = data.error || "Something went wrong.";
+        error.style.display = "block";
+        btn.disabled = false; spinner.style.display = "none";
+        btnText.textContent = "Save & Launch ReachFlow Pro →";
+        return;
+      }
+      btnText.textContent = "All set! Launching...";
+      setTimeout(() => { window.location.href = "/"; }, 600);
+    } catch(e) {
+      error.textContent = "Connection error.";
+      error.style.display = "block";
+      btn.disabled = false; spinner.style.display = "none";
+      btnText.textContent = "Save & Launch ReachFlow Pro →";
+    }
+  }
+  document.getElementById("keyInput").addEventListener("keydown", e => { if (e.key === "Enter") saveKey(); });
+</script>
+</body>
+</html>

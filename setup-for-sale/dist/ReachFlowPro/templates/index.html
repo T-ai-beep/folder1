@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ReachFlow Pro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --brand: #7c3aed;
+      --brand-dim: rgba(124,58,237,0.7);
+      --sidebar: #0c0c0f;
+      --sidebar-border: rgba(255,255,255,0.065);
+      --nav-hover: rgba(255,255,255,0.05);
+      --nav-active: rgba(124,58,237,0.15);
+      --input-bg: rgba(255,255,255,0.04);
+      --input-border: rgba(255,255,255,0.09);
+      --input-focus: rgba(124,58,237,0.6);
+      --muted: rgba(255,255,255,0.32);
+      --dim: rgba(255,255,255,0.58);
+      --main-bg: #f4f4f6;
+      --card-bg: #ffffff;
+      --card-border: #e8e8eb;
+      --text-main: #111118;
+      --text-sub: #6b6b80;
+    }
+
+    html, body { height: 100%; font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+
+    /* ── Layout ──────────────────────────────────── */
+    .app { display: flex; height: 100vh; overflow: hidden; }
+
+    /* ── Sidebar ──────────────────────────────────── */
+    .sidebar {
+      width: 230px; min-width: 230px;
+      background: var(--sidebar);
+      display: flex; flex-direction: column;
+      border-right: 1px solid var(--sidebar-border);
+      overflow-y: auto; scrollbar-width: none;
+    }
+    .sidebar::-webkit-scrollbar { display: none; }
+
+    .sidebar-header {
+      padding: 20px 18px 16px;
+      border-bottom: 1px solid var(--sidebar-border);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .brand { display: flex; align-items: center; gap: 9px; }
+    .brand-mark {
+      width: 28px; height: 28px;
+      background: linear-gradient(135deg, #7c3aed, #4338ca);
+      border-radius: 7px;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .brand-name { font-size: 14px; font-weight: 700; color: white; letter-spacing: -0.02em; }
+    .brand-pro {
+      font-size: 9px; font-weight: 700;
+      background: linear-gradient(135deg, #7c3aed, #4338ca);
+      color: white; padding: 2px 6px; border-radius: 99px; letter-spacing: 0.06em;
+    }
+    .reset-link { font-size: 11px; color: var(--muted); text-decoration: none; padding: 3px 7px; border-radius: 5px; transition: color 0.15s, background 0.15s; }
+    .reset-link:hover { color: var(--dim); background: var(--nav-hover); }
+
+    .nav-section-label {
+      font-size: 9.5px; font-weight: 700; color: rgba(255,255,255,0.22);
+      text-transform: uppercase; letter-spacing: 0.1em;
+      padding: 18px 18px 7px;
+    }
+
+    .nav-item {
+      display: flex; align-items: center; gap: 11px;
+      padding: 9px 14px;
+      margin: 0 8px 2px;
+      border-radius: 8px;
+      cursor: pointer;
+      border: none;
+      background: none;
+      width: calc(100% - 16px);
+      text-align: left;
+      font-family: 'Inter', sans-serif;
+      transition: background 0.12s;
+    }
+    .nav-item:hover { background: var(--nav-hover); }
+    .nav-item.active { background: var(--nav-active); }
+    .nav-icon {
+      width: 28px; height: 28px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 7px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.12s;
+    }
+    .nav-item.active .nav-icon { background: rgba(124,58,237,0.25); }
+    .nav-item.active .nav-icon svg { stroke: #a78bfa; }
+    .nav-icon svg { stroke: rgba(255,255,255,0.4); transition: stroke 0.12s; }
+    .nav-item:hover .nav-icon svg { stroke: rgba(255,255,255,0.65); }
+    .nav-label { font-size: 13px; font-weight: 500; color: var(--dim); transition: color 0.12s; }
+    .nav-item.active .nav-label { color: #c4b5fd; font-weight: 600; }
+    .nav-item:hover .nav-label { color: rgba(255,255,255,0.8); }
+
+    .sidebar-footer {
+      margin-top: auto;
+      padding: 16px 18px;
+      border-top: 1px solid var(--sidebar-border);
+    }
+    .sidebar-footer p { font-size: 11px; color: rgba(255,255,255,0.2); line-height: 1.5; }
+
+    /* ── Main ──────────────────────────────────── */
+    .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; background: var(--main-bg); }
+
+    .main-header {
+      background: white;
+      border-bottom: 1px solid #e8e8eb;
+      padding: 15px 28px;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-shrink: 0; min-height: 60px;
+    }
+    .tool-title { font-size: 15px; font-weight: 700; color: var(--text-main); letter-spacing: -0.01em; }
+    .tool-desc { font-size: 12.5px; color: var(--text-sub); margin-top: 1px; }
+    .header-actions { display: flex; align-items: center; gap: 10px; }
+    .copy-all-btn {
+      display: none;
+      background: #f4f4f6; border: 1px solid #e0e0e4; border-radius: 8px;
+      padding: 6px 14px; font-size: 12.5px; font-weight: 500; color: #555;
+      cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.15s;
+      align-items: center; gap: 6px;
+    }
+    .copy-all-btn:hover { background: #e8e8eb; color: #222; }
+    .copy-all-btn.copied { background: #f0fdf4; color: #16a34a; border-color: #bbf7d0; }
+
+    /* ── Body split: inputs | output ──────────────────── */
+    .body-split { flex: 1; display: flex; overflow: hidden; }
+
+    /* ── Input panel ──────────────────────────────────── */
+    .input-panel {
+      width: 310px; min-width: 310px;
+      background: white;
+      border-right: 1px solid #e8e8eb;
+      display: flex; flex-direction: column;
+      overflow-y: auto; scrollbar-width: thin;
+    }
+    .input-panel::-webkit-scrollbar { width: 4px; }
+    .input-panel::-webkit-scrollbar-thumb { background: #ddd; border-radius: 99px; }
+
+    .ip-body { padding: 22px 20px 8px; flex: 1; }
+
+    .field { margin-bottom: 15px; }
+    .field label { display: block; font-size: 11px; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 6px; }
+    .field textarea { resize: vertical; min-height: 80px; }
+
+    .f-input, .f-select, .f-textarea {
+      width: 100%;
+      background: #fafafa;
+      border: 1.5px solid #e8e8eb;
+      border-radius: 9px;
+      padding: 9px 12px;
+      font-size: 13px;
+      color: #111;
+      font-family: 'Inter', sans-serif;
+      outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .f-input::placeholder, .f-textarea::placeholder { color: #bbb; }
+    .f-input:focus, .f-select:focus, .f-textarea:focus {
+      border-color: rgba(124,58,237,0.5);
+      box-shadow: 0 0 0 3px rgba(124,58,237,0.08);
+      background: white;
+    }
+    .f-input.error-field { border-color: rgba(220,38,38,0.5); animation: shake 0.35s ease; }
+    @keyframes shake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-4px)} 40%,80%{transform:translateX(4px)} }
+
+    .f-select { appearance: none; cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%23999' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; background-size: 14px; padding-right: 30px; }
+    .f-textarea { resize: vertical; }
+
+    .field-row { display: flex; gap: 10px; }
+    .field-row .field { flex: 1; margin-bottom: 0; }
+
+    /* Tone pills */
+    .tone-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+    .tone-pill {
+      background: #fafafa; border: 1.5px solid #e8e8eb; border-radius: 8px;
+      padding: 8px 10px; font-size: 12px; font-weight: 500; color: #777;
+      cursor: pointer; font-family: 'Inter', sans-serif;
+      transition: all 0.15s; display: flex; align-items: center; gap: 6px; text-align: left;
+    }
+    .tone-pill:hover { background: #f0f0f3; color: #333; }
+    .tone-pill.sel { background: rgba(124,58,237,0.06); border-color: rgba(124,58,237,0.4); color: #6d28d9; }
+
+    /* Stepper */
+    .stepper { display: flex; align-items: center; gap: 0; background: #fafafa; border: 1.5px solid #e8e8eb; border-radius: 9px; overflow: hidden; width: fit-content; }
+    .stepper-btn { background: none; border: none; color: #888; font-size: 16px; width: 34px; height: 34px; cursor: pointer; font-family: 'Inter', sans-serif; transition: background 0.12s, color 0.12s; display: flex; align-items: center; justify-content: center; }
+    .stepper-btn:hover { background: #f0f0f3; color: #333; }
+    .stepper-val { font-size: 13px; font-weight: 600; color: #333; width: 30px; text-align: center; }
+
+    .ip-footer { padding: 16px 20px 20px; border-top: 1px solid #f0f0f3; }
+
+    .gen-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #7c3aed, #4338ca);
+      color: white; border: none; border-radius: 9px;
+      padding: 12px; font-size: 13.5px; font-weight: 600;
+      font-family: 'Inter', sans-serif; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 7px;
+      transition: opacity 0.15s, transform 0.1s;
+      box-shadow: 0 3px 16px rgba(124,58,237,0.28);
+      letter-spacing: -0.01em;
+    }
+    .gen-btn:hover:not(:disabled) { opacity: 0.9; }
+    .gen-btn:active:not(:disabled) { transform: scale(0.99); }
+    .gen-btn:disabled { opacity: 0.45; cursor: not-allowed; box-shadow: none; }
+    .kbd { font-size: 10px; background: rgba(255,255,255,0.18); padding: 1px 5px; border-radius: 4px; font-family: monospace; margin-left: 2px; }
+
+    /* ── Output panel ──────────────────────────────────── */
+    .output-panel { flex: 1; overflow-y: auto; padding: 24px; scrollbar-width: thin; }
+    .output-panel::-webkit-scrollbar { width: 5px; }
+    .output-panel::-webkit-scrollbar-thumb { background: #d4d4d8; border-radius: 99px; }
+
+    /* Empty */
+    .empty-state {
+      height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding-bottom: 60px; gap: 14px;
+    }
+    .empty-icon {
+      width: 56px; height: 56px; background: white;
+      border: 1.5px dashed #d4d4d8; border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .empty-state h3 { font-size: 15px; font-weight: 600; color: #555; }
+    .empty-state p { font-size: 13px; color: #aaa; max-width: 240px; line-height: 1.55; }
+    .empty-arrow { font-size: 12px; color: #bbb; display: flex; align-items: center; gap: 6px; }
+
+    /* Stream box */
+    .stream-box { display: none; background: white; border: 1px solid var(--card-border); border-radius: 14px; padding: 22px; box-shadow: 0 1px 6px rgba(0,0,0,0.04); margin-bottom: 16px; }
+    .stream-header { display: flex; align-items: center; gap: 9px; margin-bottom: 16px; }
+    .stream-label { font-size: 11px; font-weight: 700; color: var(--brand); text-transform: uppercase; letter-spacing: 0.07em; flex: 1; }
+    .stream-chars { font-size: 11px; color: #bbb; font-variant-numeric: tabular-nums; }
+    .mini-spin { width: 12px; height: 12px; border: 1.5px solid #e0d9f7; border-top-color: var(--brand); border-radius: 50%; animation: spin 0.65s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .stream-text { font-size: 13.5px; line-height: 1.78; color: #444; white-space: pre-wrap; word-break: break-word; font-family: 'Inter', sans-serif; }
+    .cursor { display: inline-block; width: 2px; height: 15px; background: var(--brand); margin-left: 1px; vertical-align: text-bottom; animation: blink 1s step-end infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    /* Error */
+    .error-bar { display: none; background: #fff5f5; border: 1px solid #fecaca; border-radius: 11px; padding: 12px 16px; font-size: 13px; color: #dc2626; margin-bottom: 16px; }
+
+    /* Cards */
+    .cards-grid { display: flex; flex-direction: column; gap: 14px; }
+
+    .out-card {
+      background: white; border: 1px solid var(--card-border); border-radius: 14px;
+      overflow: hidden; box-shadow: 0 1px 5px rgba(0,0,0,0.04);
+      animation: fadeup 0.32s cubic-bezier(.16,1,.3,1) both;
+      transition: border-color 0.15s;
+    }
+    .out-card:hover { border-color: #d0d0d8; }
+    @keyframes fadeup { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+
+    .card-header { padding: 12px 18px; background: #fafafa; border-bottom: 1px solid #f2f2f2; display: flex; align-items: center; justify-content: space-between; }
+    .card-meta { display: flex; align-items: center; gap: 10px; }
+    .card-badge { font-size: 10.5px; font-weight: 700; color: var(--brand); text-transform: uppercase; letter-spacing: 0.08em; }
+    .word-badge { font-size: 11px; color: #bbb; font-weight: 500; }
+    .copy-btn { background: white; border: 1px solid #e0e0e4; border-radius: 7px; padding: 5px 13px; font-size: 12px; font-weight: 500; color: #666; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.15s; display: flex; align-items: center; gap: 5px; }
+    .copy-btn:hover { background: #f5f5f7; color: #222; }
+    .copy-btn.copied { background: #f0fdf4; color: #16a34a; border-color: #bbf7d0; }
+
+    .card-subject { padding: 11px 18px; border-bottom: 1px solid #f5f5f5; }
+    .sub-label { font-size: 10px; font-weight: 700; color: #bbb; text-transform: uppercase; letter-spacing: 0.08em; display: block; margin-bottom: 3px; }
+    .sub-text { font-size: 13.5px; font-weight: 600; color: #111; }
+
+    .card-body { padding: 18px; }
+    .card-body pre { font-size: 13.5px; line-height: 1.78; color: #333; white-space: pre-wrap; word-break: break-word; font-family: 'Inter', sans-serif; }
+
+    /* Tool panels */
+    .tool-panel { display: none; height: 100%; flex-direction: row; }
+    .tool-panel.active { display: flex; }
+
+    /* ── Tool-specific tweaks ──────────────────────────── */
+    .char-counter { font-size: 11px; color: #bbb; text-align: right; margin-top: 4px; }
+    .char-counter.warn { color: #f59e0b; }
+    .char-counter.over { color: #ef4444; }
+
+    /* ── Responsive ──────────────────────────────────── */
+    @media (max-width: 900px) {
+      .sidebar { width: 200px; min-width: 200px; }
+      .input-panel { width: 270px; min-width: 270px; }
+    }
+    @media (max-width: 650px) {
+      .app { flex-direction: column; height: auto; }
+      .sidebar { width: 100%; min-width: 0; flex-direction: row; overflow-x: auto; height: auto; border-right: none; border-bottom: 1px solid var(--sidebar-border); }
+      .sidebar-header { padding: 12px 14px; flex-shrink: 0; }
+      .nav-section-label { display: none; }
+      .nav-item { margin: 4px; padding: 8px 10px; }
+      .nav-label { font-size: 11px; }
+      .body-split { flex-direction: column; overflow: visible; }
+      .input-panel { width: 100%; min-width: 0; border-right: none; border-bottom: 1px solid #e8e8eb; }
+      .tool-panel { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+
+  <!-- ── Sidebar ── -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="brand">
+        <div class="brand-mark">
+          <svg width="14" height="14" fill="none" viewBox="0 0 24 24">
+            <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <span class="brand-name">ReachFlow</span>
+        <span class="brand-pro">PRO</span>
+      </div>
+    </div>
+
+    <div class="nav-section-label">Tools</div>
+
+    <button class="nav-item active" id="nav-email" onclick="switchTool('email')">
+      <div class="nav-icon">
+        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+      </div>
+      <span class="nav-label">Cold Email</span>
+    </button>
+
+    <button class="nav-item" id="nav-sequence" onclick="switchTool('sequence')">
+      <div class="nav-icon">
+        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+      </div>
+      <span class="nav-label">Follow-up Sequence</span>
+    </button>
+
+    <button class="nav-item" id="nav-linkedin" onclick="switchTool('linkedin')">
+      <div class="nav-icon">
+        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+      </div>
+      <span class="nav-label">LinkedIn Outreach</span>
+    </button>
+
+    <button class="nav-item" id="nav-objection" onclick="switchTool('objection')">
+      <div class="nav-icon">
+        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+      </div>
+      <span class="nav-label">Objection Crusher</span>
+    </button>
+
+    <button class="nav-item" id="nav-subjects" onclick="switchTool('subjects')">
+      <div class="nav-icon">
+        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14"/></svg>
+      </div>
+      <span class="nav-label">Subject Line Lab</span>
+    </button>
+
+    <button class="nav-item" id="nav-opener" onclick="switchTool('opener')">
+      <div class="nav-icon">
+        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+      </div>
+      <span class="nav-label">Opener Generator</span>
+    </button>
+
+    <div class="sidebar-footer">
+      <p>Powered by Groq AI<br>Free · Unlimited</p>
+      <a href="/reset" class="reset-link" onclick="return confirm('Reset API key?')" style="display:inline-block;margin-top:8px;color:rgba(255,255,255,0.2);font-size:11px;text-decoration:none;">⚙ Reset key</a>
+    </div>
+  </aside>
+
+  <!-- ── Main ── -->
+  <div class="main">
+
+    <!-- Header -->
+    <div class="main-header">
+      <div>
+        <div class="tool-title" id="headerTitle">Cold Email</div>
+        <div class="tool-desc" id="headerDesc">Generate personalized cold emails that get replies</div>
+      </div>
+      <div class="header-actions">
+        <button class="copy-all-btn" id="copyAllBtn" onclick="copyAll()">
+          <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          Copy All
+        </button>
+      </div>
+    </div>
+
+    <!-- Tool panels -->
+    <div class="body-split" id="bodyWrap">
+
+      <!-- ══ TOOL: Cold Email ══ -->
+      <div class="tool-panel active" id="panel-email">
+        <div class="input-panel">
+          <div class="ip-body">
+            <div class="field"><label>Your name</label><input class="f-input" id="e-sender_name" placeholder="Alex Johnson" oninput="ls('e-sender_name')"/></div>
+            <div class="field"><label>Your service</label><input class="f-input" id="e-sender_service" placeholder="Freelance web design" oninput="ls('e-sender_service')"/></div>
+            <div class="field"><label>Result you deliver</label><input class="f-input" id="e-sender_value" placeholder="2x leads with a modern website" oninput="ls('e-sender_value')"/></div>
+            <div style="height:1px;background:#f0f0f3;margin:14px 0;"></div>
+            <div class="field-row">
+              <div class="field"><label>Their name</label><input class="f-input" id="e-target_name" placeholder="Sarah Lee" oninput="ls('e-target_name')"/></div>
+              <div class="field"><label>Company</label><input class="f-input" id="e-target_company" placeholder="Bloom Bakery" oninput="ls('e-target_company')"/></div>
+            </div>
+            <div class="field"><label>Why reach out (their problem)</label><input class="f-input" id="e-target_pain" placeholder="Outdated website, losing customers" oninput="ls('e-target_pain')"/></div>
+            <div style="height:1px;background:#f0f0f3;margin:14px 0;"></div>
+            <div class="field"><label>Tone</label>
+              <div class="tone-grid">
+                <button class="tone-pill sel" data-tone="professional" onclick="selTone(this,'email')">💼 Professional</button>
+                <button class="tone-pill" data-tone="casual and friendly" onclick="selTone(this,'email')">☕ Casual</button>
+                <button class="tone-pill" data-tone="direct and bold" onclick="selTone(this,'email')">⚡ Direct</button>
+                <button class="tone-pill" data-tone="warm and conversational" onclick="selTone(this,'email')">🤝 Warm</button>
+              </div>
+            </div>
+            <div class="field"><label>Variations</label>
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div class="stepper"><button class="stepper-btn" onclick="chgCount('email',-1)">−</button><span class="stepper-val" id="e-count">3</span><button class="stepper-btn" onclick="chgCount('email',1)">+</button></div>
+                <span style="font-size:12px;color:#bbb;">email drafts</span>
+              </div>
+            </div>
+          </div>
+          <div class="ip-footer">
+            <button class="gen-btn" id="e-genBtn" onclick="generate('email')">
+              <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              Generate <span class="kbd">⌘↵</span>
+            </button>
+          </div>
+        </div>
+        <div class="output-panel" id="e-output">
+          <div class="empty-state" id="e-empty">
+            <div class="empty-icon"><svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke="#ccc" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="empty-arrow">← Fill in your details to get started</div>
+          </div>
+          <div class="error-bar" id="e-error"></div>
+          <div class="stream-box" id="e-stream"><div class="stream-header"><div class="mini-spin"></div><span class="stream-label">Writing emails...</span><span class="stream-chars" id="e-chars">0 chars</span></div><div class="stream-text" id="e-streamtext"><span class="cursor"></span></div></div>
+          <div class="cards-grid" id="e-cards"></div>
+        </div>
+      </div>
+
+      <!-- ══ TOOL: Follow-up Sequence ══ -->
+      <div class="tool-panel" id="panel-sequence">
+        <div class="input-panel">
+          <div class="ip-body">
+            <div class="field"><label>Original email you sent</label><textarea class="f-input f-textarea" id="s-original_email" placeholder="Paste the cold email you already sent here..." rows="5" oninput="ls('s-original_email')"></textarea></div>
+            <div class="field-row">
+              <div class="field"><label>Recipient name</label><input class="f-input" id="s-recipient_name" placeholder="Sarah Lee" oninput="ls('s-recipient_name')"/></div>
+              <div class="field"><label>Their company</label><input class="f-input" id="s-recipient_company" placeholder="Bloom Bakery" oninput="ls('s-recipient_company')"/></div>
+            </div>
+            <div class="field"><label>Sequence length</label>
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div class="stepper"><button class="stepper-btn" onclick="chgCount('seq',-1)">−</button><span class="stepper-val" id="s-count">4</span><button class="stepper-btn" onclick="chgCount('seq',1)">+</button></div>
+                <span style="font-size:12px;color:#bbb;">follow-up emails</span>
+              </div>
+            </div>
+            <div class="field"><label>Days between each</label>
+              <select class="f-select" id="s-days_between">
+                <option value="2">2 days</option>
+                <option value="3" selected>3 days</option>
+                <option value="5">5 days</option>
+                <option value="7">7 days</option>
+              </select>
+            </div>
+          </div>
+          <div class="ip-footer">
+            <button class="gen-btn" id="s-genBtn" onclick="generate('sequence')">
+              <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              Build Sequence <span class="kbd">⌘↵</span>
+            </button>
+          </div>
+        </div>
+        <div class="output-panel" id="s-output">
+          <div class="empty-state" id="s-empty">
+            <div class="empty-icon"><svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" stroke="#ccc" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="empty-arrow">← Paste your original email to build a sequence</div>
+          </div>
+          <div class="error-bar" id="s-error"></div>
+          <div class="stream-box" id="s-stream"><div class="stream-header"><div class="mini-spin"></div><span class="stream-label">Building sequence...</span><span class="stream-chars" id="s-chars">0 chars</span></div><div class="stream-text" id="s-streamtext"><span class="cursor"></span></div></div>
+          <div class="cards-grid" id="s-cards"></div>
+        </div>
+      </div>
+
+      <!-- ══ TOOL: LinkedIn ══ -->
+      <div class="tool-panel" id="panel-linkedin">
+        <div class="input-panel">
+          <div class="ip-body">
+            <div class="field-row">
+              <div class="field"><label>Your name</label><input class="f-input" id="l-your_name" placeholder="Alex Johnson" oninput="ls('l-your_name')"/></div>
+            </div>
+            <div class="field"><label>What you do</label><input class="f-input" id="l-your_role" placeholder="Freelance web designer for local businesses" oninput="ls('l-your_role')"/></div>
+            <div style="height:1px;background:#f0f0f3;margin:14px 0;"></div>
+            <div class="field"><label>Their name</label><input class="f-input" id="l-target_name" placeholder="Sarah Lee" oninput="ls('l-target_name')"/></div>
+            <div class="field"><label>Their role / context</label><input class="f-input" id="l-target_context" placeholder="Owner of Bloom Bakery, posts about local business growth" oninput="ls('l-target_context')"/></div>
+            <div class="field"><label>Your goal</label><input class="f-input" id="l-goal" placeholder="Offer to redesign their website" oninput="ls('l-goal')"/></div>
+          </div>
+          <div class="ip-footer">
+            <button class="gen-btn" id="l-genBtn" onclick="generate('linkedin')">
+              <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              Generate Messages <span class="kbd">⌘↵</span>
+            </button>
+          </div>
+        </div>
+        <div class="output-panel" id="l-output">
+          <div class="empty-state" id="l-empty">
+            <div class="empty-icon"><svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" stroke="#ccc" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="empty-arrow">← Fill in details for your LinkedIn outreach</div>
+          </div>
+          <div class="error-bar" id="l-error"></div>
+          <div class="stream-box" id="l-stream"><div class="stream-header"><div class="mini-spin"></div><span class="stream-label">Writing messages...</span><span class="stream-chars" id="l-chars">0 chars</span></div><div class="stream-text" id="l-streamtext"><span class="cursor"></span></div></div>
+          <div class="cards-grid" id="l-cards"></div>
+        </div>
+      </div>
+
+      <!-- ══ TOOL: Objection Crusher ══ -->
+      <div class="tool-panel" id="panel-objection">
+        <div class="input-panel">
+          <div class="ip-body">
+            <div class="field"><label>Your service / offer</label><input class="f-input" id="o-service" placeholder="Custom website design for local businesses" oninput="ls('o-service')"/></div>
+            <div class="field"><label>Their exact objection</label><textarea class="f-input f-textarea" id="o-objection" placeholder='"We already have a website, we don\'t need a new one"' rows="3" oninput="ls('o-objection')"></textarea></div>
+            <div class="field"><label>Context (optional)</label><textarea class="f-input f-textarea" id="o-context" placeholder="Stage of conversation, industry, how they said it..." rows="2" oninput="ls('o-context')"></textarea></div>
+          </div>
+          <div class="ip-footer">
+            <button class="gen-btn" id="o-genBtn" onclick="generate('objection')">
+              <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              Crush Objection <span class="kbd">⌘↵</span>
+            </button>
+          </div>
+        </div>
+        <div class="output-panel" id="o-output">
+          <div class="empty-state" id="o-empty">
+            <div class="empty-icon"><svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke="#ccc" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="empty-arrow">← Enter the objection you need to handle</div>
+          </div>
+          <div class="error-bar" id="o-error"></div>
+          <div class="stream-box" id="o-stream"><div class="stream-header"><div class="mini-spin"></div><span class="stream-label">Crafting responses...</span><span class="stream-chars" id="o-chars">0 chars</span></div><div class="stream-text" id="o-streamtext"><span class="cursor"></span></div></div>
+          <div class="cards-grid" id="o-cards"></div>
+        </div>
+      </div>
+
+      <!-- ══ TOOL: Subject Line Lab ══ -->
+      <div class="tool-panel" id="panel-subjects">
+        <div class="input-panel">
+          <div class="ip-body">
+            <div class="field"><label>Email purpose</label><input class="f-input" id="sub-purpose" placeholder="Cold outreach to restaurant owners" oninput="ls('sub-purpose')"/></div>
+            <div class="field"><label>Target audience</label><input class="f-input" id="sub-audience" placeholder="Small restaurant owners in the US" oninput="ls('sub-audience')"/></div>
+            <div class="field"><label>Your product / service</label><input class="f-input" id="sub-service" placeholder="Website redesign and SEO" oninput="ls('sub-service')"/></div>
+          </div>
+          <div class="ip-footer">
+            <button class="gen-btn" id="sub-genBtn" onclick="generate('subjects')">
+              <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              Generate 10 Lines <span class="kbd">⌘↵</span>
+            </button>
+          </div>
+        </div>
+        <div class="output-panel" id="sub-output">
+          <div class="empty-state" id="sub-empty">
+            <div class="empty-icon"><svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14" stroke="#ccc" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="empty-arrow">← Describe your email to generate 10 subject lines</div>
+          </div>
+          <div class="error-bar" id="sub-error"></div>
+          <div class="stream-box" id="sub-stream"><div class="stream-header"><div class="mini-spin"></div><span class="stream-label">Generating subject lines...</span><span class="stream-chars" id="sub-chars">0 chars</span></div><div class="stream-text" id="sub-streamtext"><span class="cursor"></span></div></div>
+          <div class="cards-grid" id="sub-cards"></div>
+        </div>
+      </div>
+
+      <!-- ══ TOOL: Opener Generator ══ -->
+      <div class="tool-panel" id="panel-opener">
+        <div class="input-panel">
+          <div class="ip-body">
+            <div class="field"><label>Their name</label><input class="f-input" id="op-target_name" placeholder="Sarah Lee" oninput="ls('op-target_name')"/></div>
+            <div class="field"><label>What you know about them</label><textarea class="f-input f-textarea" id="op-context" placeholder="Paste their LinkedIn bio, a tweet, website copy, or anything specific about them..." rows="6" oninput="ls('op-context')"></textarea></div>
+            <div class="field" style="background:#fdf6e3;border:1px solid #fde68a;border-radius:9px;padding:11px 13px;">
+              <p style="font-size:12px;color:#92400e;line-height:1.55;">💡 The more specific the context, the better the openers. Paste actual quotes from their website or social media.</p>
+            </div>
+          </div>
+          <div class="ip-footer">
+            <button class="gen-btn" id="op-genBtn" onclick="generate('opener')">
+              <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              Generate Openers <span class="kbd">⌘↵</span>
+            </button>
+          </div>
+        </div>
+        <div class="output-panel" id="op-output">
+          <div class="empty-state" id="op-empty">
+            <div class="empty-icon"><svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" stroke="#ccc" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="empty-arrow">← Add context about them to personalize openers</div>
+          </div>
+          <div class="error-bar" id="op-error"></div>
+          <div class="stream-box" id="op-stream"><div class="stream-header"><div class="mini-spin"></div><span class="stream-label">Crafting openers...</span><span class="stream-chars" id="op-chars">0 chars</span></div><div class="stream-text" id="op-streamtext"><span class="cursor"></span></div></div>
+          <div class="cards-grid" id="op-cards"></div>
+        </div>
+      </div>
+
+    </div><!-- /body-split -->
+  </div><!-- /main -->
+</div><!-- /app -->
+
+<script>
+// ── Tool config ─────────────────────────────────────────────────
+const TOOLS = {
+  email:     { title: 'Cold Email',         desc: 'Generate personalized cold emails that get replies',         endpoint: '/stream/email' },
+  sequence:  { title: 'Follow-up Sequence', desc: 'Build a multi-touch follow-up series for non-responders',   endpoint: '/stream/sequence' },
+  linkedin:  { title: 'LinkedIn Outreach',  desc: 'Write connection requests and follow-up DMs',               endpoint: '/stream/linkedin' },
+  objection: { title: 'Objection Crusher',  desc: 'Turn any sales objection into a confident response',        endpoint: '/stream/objection' },
+  subjects:  { title: 'Subject Line Lab',   desc: 'Generate 10 high-performing subject line variations',       endpoint: '/stream/subjects' },
+  opener:    { title: 'Opener Generator',   desc: 'Write personalized email opening lines based on research',  endpoint: '/stream/opener' },
+};
+
+const tones = { email: 'professional' };
+const counts = { email: 3, seq: 4 };
+let currentTool = 'email';
+let lastFullText = {};
+
+// ── Tool switching ─────────────────────────────────────────────
+function switchTool(name) {
+  Object.keys(TOOLS).forEach(t => {
+    document.getElementById(`panel-${t}`).classList.toggle('active', t === name);
+    document.getElementById(`nav-${t}`).classList.toggle('active', t === name);
+  });
+  currentTool = name;
+  const cfg = TOOLS[name];
+  document.getElementById('headerTitle').textContent = cfg.title;
+  document.getElementById('headerDesc').textContent = cfg.desc;
+  // Show copy-all if results exist for this tool
+  const prefix = toolPrefix(name);
+  const hasCards = document.getElementById(`${prefix}-cards`).children.length > 0;
+  const copyAll = document.getElementById('copyAllBtn');
+  copyAll.style.display = hasCards ? 'flex' : 'none';
+}
+
+// ── Tone and count helpers ─────────────────────────────────────
+function selTone(el, tool) {
+  el.closest('.tone-grid').querySelectorAll('.tone-pill').forEach(p => p.classList.remove('sel'));
+  el.classList.add('sel');
+  tones[tool] = el.dataset.tone;
+}
+function chgCount(key, delta) {
+  const max = key === 'seq' ? 6 : 5;
+  counts[key] = Math.max(1, Math.min(max, (counts[key] || 3) + delta));
+  document.getElementById(key === 'seq' ? 's-count' : 'e-count').textContent = counts[key];
+}
+
+// ── localStorage persistence ─────────────────────────────────
+function ls(id) {
+  const el = document.getElementById(id);
+  if (el) localStorage.setItem(`rf_${id}`, el.value);
+}
+function restoreLS() {
+  document.querySelectorAll('[id]').forEach(el => {
+    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+      const saved = localStorage.getItem(`rf_${el.id}`);
+      if (saved) el.value = saved;
+    }
+  });
+}
+
+// ── Keyboard shortcut ──────────────────────────────────────────
+document.addEventListener('keydown', e => {
+  if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') { e.preventDefault(); generate(currentTool); }
+});
+
+// ── Tool prefix map ────────────────────────────────────────────
+function toolPrefix(t) {
+  return { email:'e', sequence:'s', linkedin:'l', objection:'o', subjects:'sub', opener:'op' }[t];
+}
+
+// ── Payload builders ────────────────────────────────────────────
+function getVal(id) { return (document.getElementById(id)?.value || '').trim(); }
+
+function buildPayload(tool) {
+  switch(tool) {
+    case 'email':     return { sender_name:getVal('e-sender_name'), sender_service:getVal('e-sender_service'), sender_value:getVal('e-sender_value'), target_name:getVal('e-target_name'), target_company:getVal('e-target_company'), target_pain:getVal('e-target_pain'), tone:tones.email, num_variations:counts.email };
+    case 'sequence':  return { original_email:getVal('s-original_email'), recipient_name:getVal('s-recipient_name'), recipient_company:getVal('s-recipient_company'), length:counts.seq, days_between:document.getElementById('s-days_between').value };
+    case 'linkedin':  return { your_name:getVal('l-your_name'), your_role:getVal('l-your_role'), target_name:getVal('l-target_name'), target_context:getVal('l-target_context'), goal:getVal('l-goal') };
+    case 'objection': return { service:getVal('o-service'), objection:getVal('o-objection'), context:getVal('o-context') };
+    case 'subjects':  return { purpose:getVal('sub-purpose'), audience:getVal('sub-audience'), service:getVal('sub-service') };
+    case 'opener':    return { target_name:getVal('op-target_name'), context:getVal('op-context') };
+  }
+}
+
+function requiredFields(tool) {
+  return { email:['e-sender_name','e-sender_service','e-sender_value','e-target_name','e-target_company','e-target_pain'], sequence:['s-original_email','s-recipient_name','s-recipient_company'], linkedin:['l-your_name','l-your_role','l-target_name','l-target_context','l-goal'], objection:['o-service','o-objection'], subjects:['sub-purpose','sub-audience','sub-service'], opener:['op-target_name','op-context'] }[tool];
+}
+
+// ── Main generate ──────────────────────────────────────────────
+async function generate(tool) {
+  const p = toolPrefix(tool);
+  const btn = document.getElementById(`${p}-genBtn`);
+  const streamBox = document.getElementById(`${p}-stream`);
+  const streamText = document.getElementById(`${p}-streamtext`);
+  const charsEl = document.getElementById(`${p}-chars`);
+  const cards = document.getElementById(`${p}-cards`);
+  const empty = document.getElementById(`${p}-empty`);
+  const errorBar = document.getElementById(`${p}-error`);
+
+  // Validate
+  const required = requiredFields(tool);
+  let invalid = false;
+  required.forEach(id => {
+    const el = document.getElementById(id);
+    if (!el || !el.value.trim()) {
+      if (el) { el.classList.add('error-field'); setTimeout(() => el.classList.remove('error-field'), 700); }
+      invalid = true;
+    }
+  });
+  if (invalid) return;
+
+  // Reset state
+  btn.disabled = true;
+  btn.innerHTML = `<svg class="spin-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg> Generating...`;
+  injectSpinCSS();
+  empty.style.display = 'none';
+  errorBar.style.display = 'none';
+  cards.innerHTML = '';
+  streamText.innerHTML = '<span class="cursor"></span>';
+  charsEl.textContent = '0 chars';
+  streamBox.style.display = 'block';
+  document.getElementById('copyAllBtn').style.display = 'none';
+
+  const payload = buildPayload(tool);
+  let fullText = '';
+
+  try {
+    const res = await fetch(TOOLS[tool].endpoint, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload) });
+    if (!res.ok) { const d = await res.json(); showError(p, d.error || 'Something went wrong.'); return; }
+
+    const reader = res.body.getReader();
+    const decoder = new TextDecoder();
+    let buf = '';
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      buf += decoder.decode(value, { stream: true });
+      const lines = buf.split('\n');
+      buf = lines.pop();
+      for (const line of lines) {
+        if (!line.startsWith('data: ')) continue;
+        let msg; try { msg = JSON.parse(line.slice(6)); } catch { continue; }
+        if (msg.error) { showError(p, msg.error); return; }
+        if (msg.done) { streamBox.style.display = 'none'; renderCards(tool, p, fullText); break; }
+        if (msg.t) {
+          fullText += msg.t;
+          streamText.innerHTML = escHtml(fullText) + '<span class="cursor"></span>';
+          charsEl.textContent = fullText.length + ' chars';
+        }
+      }
+    }
+    lastFullText[tool] = fullText;
+  } catch(e) { showError(p, 'Connection error. Please try again.'); }
+  finally {
+    btn.disabled = false;
+    btn.innerHTML = `<svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg> ${getBtnLabel(tool)} <span class="kbd">⌘↵</span>`;
+  }
+}
+
+function getBtnLabel(t) { return { email:'Generate', sequence:'Build Sequence', linkedin:'Generate Messages', objection:'Crush Objection', subjects:'Generate 10 Lines', opener:'Generate Openers' }[t]; }
+
+// ── Render cards ──────────────────────────────────────────────
+function renderCards(tool, p, fullText) {
+  const container = document.getElementById(`${p}-cards`);
+  const variations = fullText.split(/\n---\n/).map(v => v.trim()).filter(Boolean);
+
+  variations.forEach((block, i) => {
+    const lines = block.split('\n');
+    const subjectLine = lines.find(l => /^(subject:|email \d+)/i.test(l)) || '';
+    const isEmail = tool === 'email';
+    const subject = isEmail ? subjectLine.replace(/^subject:\s*/i, '').trim() : '';
+    const headerLabel = tool === 'email' ? `Option ${i + 1}` :
+                        tool === 'sequence' ? `Email ${i + 1}` :
+                        tool === 'linkedin' ? ['Connection Request', 'Follow-up DM 1', 'Follow-up DM 2'][i] || `Message ${i+1}` :
+                        tool === 'objection' ? ['Acknowledge + Reframe', 'Social Proof', 'Challenge + Flip'][i] || `Response ${i+1}` :
+                        tool === 'subjects' ? `Subject Lines` :
+                        `Opener ${i + 1}`;
+
+    const body = isEmail ? lines.filter(l => !/^subject:/i.test(l)).join('\n').trim() : block.trim();
+    const wordCount = body.split(/\s+/).filter(Boolean).length;
+
+    const card = document.createElement('div');
+    card.className = 'out-card';
+    card.style.animationDelay = `${i * 65}ms`;
+    card.innerHTML = `
+      <div class="card-header">
+        <div class="card-meta">
+          <span class="card-badge">${escHtml(headerLabel)}</span>
+          <span class="word-badge">${wordCount} words</span>
+        </div>
+        <button class="copy-btn" onclick="copyCard(this)" data-text="${escAttr(block)}">
+          <svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          Copy
+        </button>
+      </div>
+      ${subject ? `<div class="card-subject"><span class="sub-label">Subject line</span><span class="sub-text">${escHtml(subject)}</span></div>` : ''}
+      <div class="card-body"><pre>${escHtml(body)}</pre></div>
+    `;
+    container.appendChild(card);
+  });
+
+  // Show copy-all if more than 1 card
+  if (variations.length > 1) {
+    const btn = document.getElementById('copyAllBtn');
+    btn.style.display = 'flex';
+    btn.classList.remove('copied');
+    btn.innerHTML = `<svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy All`;
+  }
+
+  // Smooth scroll to first card
+  setTimeout(() => container.firstChild?.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
+}
+
+// ── Copy all ──────────────────────────────────────────────────
+function copyAll() {
+  const text = lastFullText[currentTool] || '';
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('copyAllBtn');
+    btn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Copied!`;
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.innerHTML = `<svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy All`;
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+
+// ── Copy individual card ──────────────────────────────────────
+function copyCard(btn) {
+  navigator.clipboard.writeText(btn.getAttribute('data-text')).then(() => {
+    btn.innerHTML = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Copied!`;
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.innerHTML = `<svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy`;
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+
+// ── Error ─────────────────────────────────────────────────────
+function showError(p, msg) {
+  const bar = document.getElementById(`${p}-error`);
+  bar.textContent = msg; bar.style.display = 'block';
+  document.getElementById(`${p}-stream`).style.display = 'none';
+}
+
+// ── Utilities ─────────────────────────────────────────────────
+function escHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function escAttr(s) { return s.replace(/"/g,'&quot;').replace(/\n/g,'&#10;'); }
+
+let spinInjected = false;
+function injectSpinCSS() {
+  if (spinInjected) return;
+  const s = document.createElement('style');
+  s.textContent = '.spin-svg{animation:spin .75s linear infinite}';
+  document.head.appendChild(s);
+  spinInjected = true;
+}
+
+// ── Init ─────────────────────────────────────────────────────
+restoreLS();
+</script>
+</body>
+</html>

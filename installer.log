@@ -1,0 +1,695 @@
+2026-01-24 18:24:29 PlariumPlaySetup post install start
+2026-01-24 18:24:29 Phase 1: download binaries
+2026-01-24 18:24:29 arch = x86_64
+2026-01-24 18:24:29 APP_URL=https://cdn-gpd.x-plarium.com/browser/plarium-play/application/mac_os/10.11.0-0.0.0/x64/PlariumPlayBundle.zip; curl -f -o /tmp/ppapp.zip  >> ~/installer.log 2>&1;
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  9  200M    9 19.6M    0     0  42.2M      0  0:00:04 --:--:--  0:00:04 42.2M 40  200M   40 82.2M    0     0  51.7M      0  0:00:03  0:00:01  0:00:02 51.7M 57  200M   57  115M    0     0  46.4M      0  0:00:04  0:00:02  0:00:02 46.4M 86  200M   86  174M    0     0  50.3M      0  0:00:03  0:00:03 --:--:-- 50.3M100  200M  100  200M    0     0  52.1M      0  0:00:03  0:00:03 --:--:-- 52.1M
+2026-01-24 18:24:33 Phase 2: extract to Applications
+2026-01-24 18:24:33 rm -rf /Applications/Plarium Play.app >> ~/installer.log 2>&1; unzip /tmp/ppapp.zip -d /Applications >> ~/installer.log 2>&1; rm /tmp/ppapp.zip >> ~/installer.log 2>&1;
+Archive:  /tmp/ppapp.zip
+   creating: /Applications/Plarium Play.app
+   creating: /Applications/Plarium Play.app/Contents
+   creating: /Applications/Plarium Play.app/Contents/_CodeSignature
+  inflating: /Applications/Plarium Play.app/Contents/_CodeSignature/CodeResources  
+   creating: /Applications/Plarium Play.app/Contents/MacOS
+  inflating: /Applications/Plarium Play.app/Contents/MacOS/Plarium Play  
+   creating: /Applications/Plarium Play.app/Contents/Resources
+   creating: /Applications/Plarium Play.app/Contents/Resources/de.lproj
+   creating: /Applications/Plarium Play.app/Contents/Resources/ur.lproj
+   creating: /Applications/Plarium Play.app/Contents/Resources/he.lproj
+   creating: /Applications/Plarium Play.app/Contents/Resources/ar.lproj
+   creating: /Applications/Plarium Play.app/Contents/Resources/el.lproj
+   creating: /Applications/Plarium Play.app/Contents/Resources/ja.lproj
+   creating: /Applications/Plarium Play.app/Contents/Resources/fa.lproj
+   creating: /Applications/Plarium Play.app/Contents/Resources/mr.lproj
+   creating: /Applications/Plarium Play.app/Contents/Resources/en.lproj
+   creating: /Applications/Plarium Play.app/Contents/Resources/uk.lproj
+   creating: /Applications/Plarium Play.app/Contents/Resources/es_419.lproj
+   creating: /Applications/Plarium Play.app/Contents/Resources/gu.lproj
+   creating: /Applications/Plarium Play.app/Contents/Resources/zh_CN.lproj
+   creating: /Applications/Plarium Play.app/Contents/Resources/kn.lproj
+  inflating: /Applications/Plarium Play.app/Contents/Resources/electron.icns  
+   creating: /Applications/Plarium Play.app/Contents/Resources/nb.lproj
+  inflating: /Applications/Plarium Play.app/Contents/Resources/app.asar  
+   creating: /Applications/Plarium Play.app/Contents/Resources/am.lproj
+   creating: /Applications/Plarium Play.app/Contents/Resources/es.lproj
+   creating: /Applications/Plarium Play.app/Contents/Resources/sw.lproj
+   creating: /Applications/Plarium Play.app/Contents/Resources/sl.lproj
+   creating: /Applications/Plarium Play.app/Contents/Resources/pt_BR.lproj
+   creating: /Applications/Plarium Play.app/Contents/Resources/da.lproj
+   creating: /Applications/Plarium Play.app/Contents/Resources/et.lproj
+   creating: /Applications/Plarium Play.app/Contents/Resources/it.lproj
+   creating: /Applications/Plarium Play.app/Contents/Resources/bg.lproj
+   creating: /Applications/Plarium Play.app/Contents/Resources/sk.lproj
+   creating: /Applications/Plarium Play.app/Contents/Resources/pt_PT.lproj
+   creating: /Applications/Plarium Play.app/Contents/Resources/sr.lproj
+   creating: /Applications/Plarium Play.app/Contents/Resources/ms.lproj
+   creating: /Applications/Plarium Play.app/Contents/Resources/ta.lproj
+   creating: /Applications/Plarium Play.app/Contents/Resources/ml.lproj
+   creating: /Applications/Plarium Play.app/Contents/Resources/sv.lproj
+   creating: /Applications/Plarium Play.app/Contents/Resources/te.lproj
+   creating: /Applications/Plarium Play.app/Contents/Resources/cs.lproj
+   creating: /Applications/Plarium Play.app/Contents/Resources/ko.lproj
+   creating: /Applications/Plarium Play.app/Contents/Resources/fil.lproj
+   creating: /Applications/Plarium Play.app/Contents/Resources/dotnet
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/Microsoft.CSharp.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Web.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Diagnostics.Contracts.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.ServiceModel.Web.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Diagnostics.FileVersionInfo.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Runtime.Intrinsics.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Net.Security.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Xml.XPath.XDocument.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Xml.Linq.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/Microsoft.Extensions.DependencyInjection.AutoActivation.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Net.WebSockets.Client.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/createdump  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.IO.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Dynamic.Runtime.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Runtime.Serialization.Xml.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Security.Principal.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Reflection.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Threading.ThreadPool.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Net.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.IO.Compression.FileSystem.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Reflection.Metadata.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/PlariumPlay.NetHost.deps.json  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/Microsoft.Extensions.ObjectPool.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Security.Cryptography.Cng.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.ComponentModel.EventBasedAsync.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Diagnostics.DiagnosticSource.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Runtime.CompilerServices.VisualC.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Threading.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/Microsoft.Extensions.Http.Resilience.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/netstandard.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/Microsoft.VisualBasic.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.IO.UnmanagedMemoryStream.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.IO.FileSystem.AccessControl.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Xml.XPath.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/Microsoft.Extensions.Hosting.Abstractions.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/Microsoft.Extensions.Logging.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Xml.XmlDocument.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Configuration.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Resources.Writer.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Console.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/libcoreclr.dylib  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Net.Sockets.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Net.Http.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Web.HttpUtility.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Text.Encoding.Extensions.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Net.NetworkInformation.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/Microsoft.VisualBasic.Core.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/Microsoft.Extensions.Logging.EventSource.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/Microsoft.Extensions.Options.ConfigurationExtensions.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Security.Principal.Windows.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/Microsoft.Extensions.Logging.Abstractions.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Security.Claims.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.ComponentModel.Primitives.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.IO.FileSystem.DriveInfo.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/libSystem.Native.dylib  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.IO.Compression.Brotli.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/Polly.Core.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.IO.Pipes.AccessControl.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Security.Cryptography.X509Certificates.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Reflection.Primitives.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Runtime.Numerics.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.IO.FileSystem.Watcher.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/Microsoft.Extensions.Logging.Configuration.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/Microsoft.Extensions.Configuration.UserSecrets.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Diagnostics.TraceSource.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Reflection.Emit.Lightweight.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Text.Encoding.CodePages.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Linq.Expressions.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Threading.Timer.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Runtime.InteropServices.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.IO.Pipes.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Net.HttpListener.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Formats.Tar.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/Microsoft.Extensions.Configuration.FileExtensions.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/Microsoft.Extensions.Configuration.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Text.RegularExpressions.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Runtime.Serialization.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.IO.Compression.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/discord_game_sdk.bundle  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/libSystem.IO.Compression.Native.dylib  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Threading.Tasks.Parallel.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/Polly.RateLimiting.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/WindowsBase.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Private.Xml.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/Microsoft.Extensions.Logging.EventLog.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Data.DataSetExtensions.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Collections.NonGeneric.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Collections.Concurrent.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Net.Quic.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/Microsoft.Extensions.FileSystemGlobbing.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Threading.Overlapped.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Text.Encodings.Web.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Xml.Serialization.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Runtime.Handles.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Net.WebProxy.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Text.Json.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/Microsoft.Extensions.Primitives.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/Fleck.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.ObjectModel.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Private.CoreLib.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Net.WebHeaderCollection.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Runtime.InteropServices.RuntimeInformation.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.ComponentModel.TypeConverter.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/Microsoft.Extensions.DependencyInjection.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Net.Mail.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/Microsoft.Extensions.Configuration.CommandLine.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/Microsoft.Extensions.Diagnostics.ExceptionSummarization.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Threading.Tasks.Extensions.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Linq.Parallel.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Xml.XDocument.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Security.SecureString.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/discord_game_sdk_x86.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.ComponentModel.Annotations.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/Microsoft.Extensions.Configuration.EnvironmentVariables.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/PlariumPlay.NetHost  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Runtime.InteropServices.JavaScript.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/PlariumPlay.NetHost.runtimeconfig.json  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Private.DataContractSerialization.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.IO.FileSystem.Primitives.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/mscorlib.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Net.Http.Json.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/Microsoft.Extensions.Configuration.Abstractions.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Security.Cryptography.Primitives.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.IO.Compression.ZipFile.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/Microsoft.Extensions.Hosting.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Windows.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/PlariumPlay.NetHost.Base.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Linq.Queryable.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Resources.ResourceManager.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Resources.Reader.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/Microsoft.Extensions.Options.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Collections.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Reflection.Emit.ILGeneration.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/discord_game_sdk_x86.dll.lib  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/PlariumPlay.NetHost.pdb  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Data.Common.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Net.NameResolution.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.ComponentModel.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Threading.RateLimiting.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Private.Uri.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Runtime.Loader.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Xml.ReaderWriter.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/Microsoft.Extensions.Configuration.Binder.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/libSystem.Globalization.Native.dylib  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Threading.Tasks.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Diagnostics.Tracing.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.AppContext.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Buffers.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Security.Cryptography.Csp.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Diagnostics.TextWriterTraceListener.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Security.Cryptography.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/libSystem.Security.Cryptography.Native.Apple.dylib  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Text.Encoding.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/libmscordaccore.dylib  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Transactions.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Threading.Tasks.Dataflow.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/Newtonsoft.Json.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.IO.MemoryMappedFiles.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Security.Cryptography.OpenSsl.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Runtime.CompilerServices.Unsafe.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/Microsoft.Win32.Registry.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Globalization.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/Microsoft.Extensions.Configuration.Json.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/Microsoft.Extensions.Compliance.Abstractions.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Collections.Specialized.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/Microsoft.Extensions.FileProviders.Abstractions.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/Microsoft.Extensions.Telemetry.Abstractions.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.ValueTuple.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/libhostfxr.dylib  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/libSystem.Net.Security.Native.dylib  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/Microsoft.Extensions.Http.Diagnostics.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Runtime.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Net.ServicePoint.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Xml.XmlSerializer.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Reflection.Extensions.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Globalization.Extensions.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Runtime.Extensions.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Data.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/discord_game_sdk.dylib  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Security.Cryptography.Encoding.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/Microsoft.Extensions.Http.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/discord_game_sdk.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.IO.IsolatedStorage.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/libmscordbi.dylib  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/Microsoft.Extensions.Logging.Console.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Security.AccessControl.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Reflection.TypeExtensions.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Globalization.Calendars.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/Microsoft.Extensions.Resilience.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Net.Requests.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/libdiscord_game_sdk.dylib  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Net.WebSockets.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Reflection.Emit.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.IO.FileSystem.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Runtime.Serialization.Json.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Security.Cryptography.Algorithms.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/Microsoft.IO.RecyclableMemoryStream.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/Microsoft.Extensions.DependencyInjection.Abstractions.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/Microsoft.Extensions.FileProviders.Physical.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/External.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Threading.Thread.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Numerics.Vectors.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.ServiceProcess.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/discord_game_sdk.dll.lib  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/PlariumPlay.NetHost.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/libhostpolicy.dylib  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Linq.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/Microsoft.Extensions.Diagnostics.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Diagnostics.Process.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Diagnostics.EventLog.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Numerics.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Xml.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/Microsoft.Extensions.Telemetry.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/Microsoft.Extensions.Diagnostics.Abstractions.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Diagnostics.Tools.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Collections.Immutable.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/discord_game_sdk.so  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/Microsoft.Extensions.Logging.Debug.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/libSystem.Security.Cryptography.Native.OpenSsl.dylib  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/Polly.Extensions.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Diagnostics.Debug.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/Microsoft.Win32.Primitives.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Runtime.Serialization.Primitives.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Transactions.Local.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Drawing.Primitives.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Drawing.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Runtime.Serialization.Formatters.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Net.Ping.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Diagnostics.StackTrace.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Security.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Reflection.DispatchProxy.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/libclrjit.dylib  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/libclrgc.dylib  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Core.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Net.WebClient.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Formats.Asn1.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.ComponentModel.DataAnnotations.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Private.Xml.Linq.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Memory.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Net.Primitives.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/System.Threading.Channels.dll  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/dotnet/Microsoft.Extensions.AmbientMetadata.Application.dll  
+   creating: /Applications/Plarium Play.app/Contents/Resources/hu.lproj
+   creating: /Applications/Plarium Play.app/Contents/Resources/tr.lproj
+   creating: /Applications/Plarium Play.app/Contents/Resources/pl.lproj
+   creating: /Applications/Plarium Play.app/Contents/Resources/zh_TW.lproj
+   creating: /Applications/Plarium Play.app/Contents/Resources/en_GB.lproj
+   creating: /Applications/Plarium Play.app/Contents/Resources/app.asar.unpacked
+   creating: /Applications/Plarium Play.app/Contents/Resources/app.asar.unpacked/node_modules
+   creating: /Applications/Plarium Play.app/Contents/Resources/app.asar.unpacked/node_modules/nodeaddons
+  inflating: /Applications/Plarium Play.app/Contents/Resources/app.asar.unpacked/node_modules/nodeaddons/binding.cc  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/app.asar.unpacked/node_modules/nodeaddons/platform_win.cc  
+   creating: /Applications/Plarium Play.app/Contents/Resources/app.asar.unpacked/node_modules/nodeaddons/bin
+   creating: /Applications/Plarium Play.app/Contents/Resources/app.asar.unpacked/node_modules/nodeaddons/bin/darwin-x64-136
+  inflating: /Applications/Plarium Play.app/Contents/Resources/app.asar.unpacked/node_modules/nodeaddons/bin/darwin-x64-136/src.node  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/app.asar.unpacked/node_modules/nodeaddons/binding.gyp  
+   creating: /Applications/Plarium Play.app/Contents/Resources/app.asar.unpacked/node_modules/nodeaddons/node_modules
+   creating: /Applications/Plarium Play.app/Contents/Resources/app.asar.unpacked/node_modules/nodeaddons/node_modules/file-uri-to-path
+ extracting: /Applications/Plarium Play.app/Contents/Resources/app.asar.unpacked/node_modules/nodeaddons/node_modules/file-uri-to-path/.npmignore  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/app.asar.unpacked/node_modules/nodeaddons/node_modules/file-uri-to-path/LICENSE  
+   creating: /Applications/Plarium Play.app/Contents/Resources/app.asar.unpacked/node_modules/nodeaddons/node_modules/file-uri-to-path/test
+  inflating: /Applications/Plarium Play.app/Contents/Resources/app.asar.unpacked/node_modules/nodeaddons/node_modules/file-uri-to-path/test/tests.json  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/app.asar.unpacked/node_modules/nodeaddons/node_modules/file-uri-to-path/test/test.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/app.asar.unpacked/node_modules/nodeaddons/node_modules/file-uri-to-path/History.md  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/app.asar.unpacked/node_modules/nodeaddons/node_modules/file-uri-to-path/index.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/app.asar.unpacked/node_modules/nodeaddons/node_modules/file-uri-to-path/README.md  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/app.asar.unpacked/node_modules/nodeaddons/node_modules/file-uri-to-path/package.json  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/app.asar.unpacked/node_modules/nodeaddons/node_modules/file-uri-to-path/index.d.ts  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/app.asar.unpacked/node_modules/nodeaddons/node_modules/file-uri-to-path/.travis.yml  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/app.asar.unpacked/node_modules/nodeaddons/node_modules/.package-lock.json  
+   creating: /Applications/Plarium Play.app/Contents/Resources/app.asar.unpacked/node_modules/nodeaddons/node_modules/bindings
+  inflating: /Applications/Plarium Play.app/Contents/Resources/app.asar.unpacked/node_modules/nodeaddons/node_modules/bindings/LICENSE.md  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/app.asar.unpacked/node_modules/nodeaddons/node_modules/bindings/README.md  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/app.asar.unpacked/node_modules/nodeaddons/node_modules/bindings/package.json  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/app.asar.unpacked/node_modules/nodeaddons/node_modules/bindings/bindings.js  
+ extracting: /Applications/Plarium Play.app/Contents/Resources/app.asar.unpacked/node_modules/nodeaddons/index.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/app.asar.unpacked/node_modules/nodeaddons/package.json  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/app.asar.unpacked/node_modules/nodeaddons/logger.cc  
+   creating: /Applications/Plarium Play.app/Contents/Resources/app.asar.unpacked/node_modules/nodeaddons/build
+  inflating: /Applications/Plarium Play.app/Contents/Resources/app.asar.unpacked/node_modules/nodeaddons/build/gyp-mac-tool  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/app.asar.unpacked/node_modules/nodeaddons/build/nodeaddons.target.mk  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/app.asar.unpacked/node_modules/nodeaddons/build/Makefile  
+   creating: /Applications/Plarium Play.app/Contents/Resources/app.asar.unpacked/node_modules/nodeaddons/build/Release
+  inflating: /Applications/Plarium Play.app/Contents/Resources/app.asar.unpacked/node_modules/nodeaddons/build/Release/nodeaddons.node  
+ extracting: /Applications/Plarium Play.app/Contents/Resources/app.asar.unpacked/node_modules/nodeaddons/build/Release/.forge-meta  
+   creating: /Applications/Plarium Play.app/Contents/Resources/app.asar.unpacked/node_modules/nodeaddons/build/Release/.deps
+   creating: /Applications/Plarium Play.app/Contents/Resources/app.asar.unpacked/node_modules/nodeaddons/build/Release/.deps/Release
+   creating: /Applications/Plarium Play.app/Contents/Resources/app.asar.unpacked/node_modules/nodeaddons/build/Release/.deps/Release/obj.target
+   creating: /Applications/Plarium Play.app/Contents/Resources/app.asar.unpacked/node_modules/nodeaddons/build/Release/.deps/Release/obj.target/nodeaddons
+  inflating: /Applications/Plarium Play.app/Contents/Resources/app.asar.unpacked/node_modules/nodeaddons/build/Release/.deps/Release/obj.target/nodeaddons/binding.o.d  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/app.asar.unpacked/node_modules/nodeaddons/build/Release/.deps/Release/obj.target/nodeaddons/platform_mac.o.d  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/app.asar.unpacked/node_modules/nodeaddons/build/Release/.deps/Release/obj.target/nodeaddons/logger.o.d  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/app.asar.unpacked/node_modules/nodeaddons/build/Release/.deps/Release/nodeaddons.node.d  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/app.asar.unpacked/node_modules/nodeaddons/build/config.gypi  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/app.asar.unpacked/node_modules/nodeaddons/build/binding.Makefile  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/app.asar.unpacked/node_modules/nodeaddons/logger.h  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/app.asar.unpacked/node_modules/nodeaddons/platform_mac.mm  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/app.asar.unpacked/node_modules/nodeaddons/platform.h  
+   creating: /Applications/Plarium Play.app/Contents/Resources/vi.lproj
+   creating: /Applications/Plarium Play.app/Contents/Resources/lv.lproj
+   creating: /Applications/Plarium Play.app/Contents/Resources/lt.lproj
+   creating: /Applications/Plarium Play.app/Contents/Resources/ru.lproj
+   creating: /Applications/Plarium Play.app/Contents/Resources/af.lproj
+   creating: /Applications/Plarium Play.app/Contents/Resources/fr.lproj
+   creating: /Applications/Plarium Play.app/Contents/Resources/fi.lproj
+   creating: /Applications/Plarium Play.app/Contents/Resources/id.lproj
+   creating: /Applications/Plarium Play.app/Contents/Resources/nl.lproj
+   creating: /Applications/Plarium Play.app/Contents/Resources/th.lproj
+   creating: /Applications/Plarium Play.app/Contents/Resources/bn.lproj
+   creating: /Applications/Plarium Play.app/Contents/Resources/assets
+   creating: /Applications/Plarium Play.app/Contents/Resources/assets/icons
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/icons/icon.png  
+ extracting: /Applications/Plarium Play.app/Contents/Resources/assets/icons/trayActiveTemplate@2x.png  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/icons/icon.icns  
+ extracting: /Applications/Plarium Play.app/Contents/Resources/assets/icons/trayActiveTemplate.png  
+ extracting: /Applications/Plarium Play.app/Contents/Resources/assets/icons/trayTemplate@2x.png  
+ extracting: /Applications/Plarium Play.app/Contents/Resources/assets/icons/tray1.png  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/icons/icon.ico  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/icons/trayTemplate.png  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/icons/red_dot.ico  
+   creating: /Applications/Plarium Play.app/Contents/Resources/assets/client
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/src_modules_modal-management_components_mini-game_custom-condition_ts.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/src_app_profile_routing_tsx.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/src_app_mini-game_components_mini-game-event-banner_index_tsx.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/client.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/src_app_discounts_vouchers_components_voucher-modal_index_ts.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/src_app_mini-game_components_mini-game-event-modal_tsx.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/src_app_special-event-v2_components_special-event-v2-banner_index_ts.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/src_shared_components_game-event-modal_game-event-modal_tsx.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/src_app_settings_shared_language_edit-language_edit-language_tsx.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/src_app_game_components_index_tsx.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/src_app_game_components_game-series-page_game-series-page_tsx.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/10.11.0  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/src_app_master_components_type-form_type-form-popover_type-form-popover_tsx.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/locale-ja.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/src_app_settings_components_modal_body_content_release-notes_release-notes_tsx.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/src_app_all-games_components_game-section_coming-soon-banner_coming-soon-slider_coming-soon-s-6e3d55.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/src_app_settings_components_modal_body_content_overview_overview_tsx.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/locale-ru.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/src_app_my-library_components_my-games_tsx.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/src_app_global-modals_modals_confirm-email_confirm-email-modal_index_ts.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/src_app_special-event-v2_components_special-event-v2-modal_index_ts.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/src_app_user-reactivation_components_user-reactivation-modal_index_ts.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/src_app_upsell-offers_components_upsell-offers-modal_upsell-offers-modal_tsx.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/src_modules_modal-management_components_release-notes_custom-condition_ts.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/src_app_settings_components_settings_tsx.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/locale-ko.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/src_app_newsfeed_components_newsfeed_tsx.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/src_shared_components_Icons_Logo_NewSvg_tsx.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/locale-it.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/src_app_master_components_modals_game-interactions-modal_game-interactions-modal-wrapper_tsx.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/locale-es.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/src_app_game-tutorials_components_playlist-game-tutorials_playlist-game-tutorials_tsx.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/src_app_simplified-checkout_components_simplified-checkout_checkout-iframe_checkout-iframe_tsx.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/src_app_cross-promo-event_components_cross-promo-event-modal_index_ts.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/src_modules_modal-management_components_mini-game_component_tsx.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/locale-tr.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/src_shared_components_referral_referral_tsx.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/src_app_master_components_modals_release-notes-modal_release-notes-modal_tsx.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/locale-uk.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/src_app_profile_components_friends_users-lists_friends-carousel_friends-carousel_tsx.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/src_app_news_components_news-card_modal-full-news_index_tsx.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/locale-fr.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/locale-en.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/src_app_promo-page_promo-page_tsx.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/src_app_settings_components_modal_body_content_system-preferences_system-preferences_tsx.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/src_app_settings_components_modal_body_content_developers_developers_tsx.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/src_app_settings_components_modal_body_content_legal_main_main_tsx.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/clientWeb.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/manifest.json  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/src_app_smart-native-messages_components_navigation-snm_navigation-snm_tsx.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/src_app_settings_components_modal_body_content_account_account_tsx.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/src_app_discounts_gift-cards_components_gift-card-modal_index_ts.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/src_app_settings_components_modal_body_content_legal_legal_tsx.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/src_app_settings_components_modal_body_content_payments_payments_tsx.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/src_app_settings_shared_theme_edit-theme_edit-theme_tsx.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/chat.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/src_app_discord_components_discord-modal_index_ts.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/locale-de.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/src_app_all-games_components_all-games_tsx.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/src_app_settings_components_modal_body_content_system-preferences_main_main_tsx.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/src_app_in-app-notifications_components_push-notifications-list_index_tsx.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/src_app_smart-native-messages_components_poll-snm_poll-snm_tsx.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/src_app_event-calendar_components_calendar_index_ts.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/src_app_settings_components_modal_body_content_communications_communications_tsx.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/src_app_cross-promo-event_components_cross-promo-event-banner_index_ts.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/src_modules_modal-management_components_release-notes_component_tsx.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/src_app_settings_components_modal_body_content_security_security_tsx.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/src_shared_components_Icons_Logo_TestSvg_tsx.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/chat.html  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/src_app_global-modals_modals_game-release-notes_game-release-notes-modal_tsx.js  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/client/src_app_settings_components_modal_body_content_privacy_privacy_tsx.js  
+   creating: /Applications/Plarium Play.app/Contents/Resources/assets/media
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/media/6b991e63a50f19b7f1fd8119f91f4be6  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/media/ede79c1a6e3c5e1cc17a4c965a5ab778  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/media/b0f9788e53ce3dcf73bc743dac59bc46  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/media/0c2bb110b16626aa2f8a2a1ad236bf71  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/media/d43cbc03d47ebf01d3dcb36e177aa2bc  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/media/c63a1bc28a626a9e182f6ef8ca0a1cae  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/media/1df7fd4cb16dedbc4c146aec4172fe34  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/media/fb64b42048787fa685e88d8d29600208  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/media/15ffb24b59baa6f906ce8834c0c0184e  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/media/f0cc955586bd3212ec715f409bc63edf  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/media/fecd9ea6374c40ebc13392e43789dbc9  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/media/326e1415a51e758a47705c5fd92539f4  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/media/36aef5dd87825beee6b82d0b85f5d3bb  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/media/0f7b845589860eb505c03a6ad607e5b1  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/media/f4052affed841d90dd6d241314a158b1  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/media/manifest.json  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/media/21c660bcb0b8908f53dd831cb6254145  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/media/6eed733f221b1437d56aaa27e362c283  
+  inflating: /Applications/Plarium Play.app/Contents/Resources/assets/media/fc6ebee5bd184fbef576967047456b2a  
+   creating: /Applications/Plarium Play.app/Contents/Resources/ro.lproj
+   creating: /Applications/Plarium Play.app/Contents/Resources/hr.lproj
+   creating: /Applications/Plarium Play.app/Contents/Resources/hi.lproj
+   creating: /Applications/Plarium Play.app/Contents/Resources/ca.lproj
+   creating: /Applications/Plarium Play.app/Contents/Frameworks
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework
+    linking: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Electron Framework  -> Versions/Current/Electron Framework 
+    linking: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Resources  -> Versions/Current/Resources 
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/_CodeSignature
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/_CodeSignature/CodeResources  
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Electron Framework  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/de.lproj
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/de.lproj/locale.pak  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/ur.lproj
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/ur.lproj/locale.pak  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/he.lproj
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/he.lproj/locale.pak  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/ar.lproj
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/ar.lproj/locale.pak  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/el.lproj
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/el.lproj/locale.pak  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/ja.lproj
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/ja.lproj/locale.pak  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/fa.lproj
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/fa.lproj/locale.pak  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/mr.lproj
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/mr.lproj/locale.pak  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/en.lproj
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/en.lproj/locale.pak  
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/chrome_200_percent.pak  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/uk.lproj
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/uk.lproj/locale.pak  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/es_419.lproj
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/es_419.lproj/locale.pak  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/gu.lproj
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/gu.lproj/locale.pak  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/zh_CN.lproj
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/zh_CN.lproj/locale.pak  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/kn.lproj
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/kn.lproj/locale.pak  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/nb.lproj
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/nb.lproj/locale.pak  
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/chrome_100_percent.pak  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/am.lproj
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/am.lproj/locale.pak  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/es.lproj
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/es.lproj/locale.pak  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/sw.lproj
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/sw.lproj/locale.pak  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/sl.lproj
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/sl.lproj/locale.pak  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/pt_BR.lproj
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/pt_BR.lproj/locale.pak  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/da.lproj
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/da.lproj/locale.pak  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/et.lproj
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/et.lproj/locale.pak  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/it.lproj
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/it.lproj/locale.pak  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/bg.lproj
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/bg.lproj/locale.pak  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/sk.lproj
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/sk.lproj/locale.pak  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/pt_PT.lproj
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/pt_PT.lproj/locale.pak  
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/icudtl.dat  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/sr.lproj
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/sr.lproj/locale.pak  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/ms.lproj
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/ms.lproj/locale.pak  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/ta.lproj
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/ta.lproj/locale.pak  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/ml.lproj
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/ml.lproj/locale.pak  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/sv.lproj
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/sv.lproj/locale.pak  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/te.lproj
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/te.lproj/locale.pak  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/cs.lproj
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/cs.lproj/locale.pak  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/ko.lproj
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/ko.lproj/locale.pak  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/fil.lproj
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/fil.lproj/locale.pak  
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/MainMenu.nib  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/hu.lproj
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/hu.lproj/locale.pak  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/tr.lproj
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/tr.lproj/locale.pak  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/pl.lproj
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/pl.lproj/locale.pak  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/zh_TW.lproj
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/zh_TW.lproj/locale.pak  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/en_GB.lproj
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/en_GB.lproj/locale.pak  
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/resources.pak  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/vi.lproj
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/vi.lproj/locale.pak  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/lv.lproj
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/lv.lproj/locale.pak  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/lt.lproj
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/lt.lproj/locale.pak  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/ru.lproj
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/ru.lproj/locale.pak  
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/v8_context_snapshot.x86_64.bin  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/af.lproj
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/af.lproj/locale.pak  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/fr.lproj
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/fr.lproj/locale.pak  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/fi.lproj
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/fi.lproj/locale.pak  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/id.lproj
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/id.lproj/locale.pak  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/nl.lproj
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/nl.lproj/locale.pak  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/th.lproj
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/th.lproj/locale.pak  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/bn.lproj
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/bn.lproj/locale.pak  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/ro.lproj
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/ro.lproj/locale.pak  
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/Info.plist  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/hr.lproj
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/hr.lproj/locale.pak  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/hi.lproj
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/hi.lproj/locale.pak  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/ca.lproj
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/ca.lproj/locale.pak  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Libraries
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Libraries/libEGL.dylib  
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Libraries/vk_swiftshader_icd.json  
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Libraries/libvk_swiftshader.dylib  
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Libraries/libGLESv2.dylib  
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Libraries/libffmpeg.dylib  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Helpers
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Helpers/chrome_crashpad_handler  
+    linking: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/Current  -> A 
+    linking: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Libraries  -> Versions/Current/Libraries 
+    linking: /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Helpers  -> Versions/Current/Helpers 
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/ReactiveObjC.framework
+    linking: /Applications/Plarium Play.app/Contents/Frameworks/ReactiveObjC.framework/Resources  -> Versions/Current/Resources 
+    linking: /Applications/Plarium Play.app/Contents/Frameworks/ReactiveObjC.framework/ReactiveObjC  -> Versions/Current/ReactiveObjC 
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/ReactiveObjC.framework/Versions
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/ReactiveObjC.framework/Versions/A
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/ReactiveObjC.framework/Versions/A/_CodeSignature
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/ReactiveObjC.framework/Versions/A/_CodeSignature/CodeResources  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/ReactiveObjC.framework/Versions/A/Resources
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/ReactiveObjC.framework/Versions/A/Resources/Info.plist  
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/ReactiveObjC.framework/Versions/A/ReactiveObjC  
+    linking: /Applications/Plarium Play.app/Contents/Frameworks/ReactiveObjC.framework/Versions/Current  -> A 
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Squirrel.framework
+    linking: /Applications/Plarium Play.app/Contents/Frameworks/Squirrel.framework/Resources  -> Versions/Current/Resources 
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Squirrel.framework/Versions
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Squirrel.framework/Versions/A
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Squirrel.framework/Versions/A/_CodeSignature
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Squirrel.framework/Versions/A/_CodeSignature/CodeResources  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Squirrel.framework/Versions/A/Resources
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Squirrel.framework/Versions/A/Resources/ShipIt  
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Squirrel.framework/Versions/A/Resources/Info.plist  
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Squirrel.framework/Versions/A/Squirrel  
+    linking: /Applications/Plarium Play.app/Contents/Frameworks/Squirrel.framework/Versions/Current  -> A 
+    linking: /Applications/Plarium Play.app/Contents/Frameworks/Squirrel.framework/Squirrel  -> Versions/Current/Squirrel 
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Mantle.framework
+    linking: /Applications/Plarium Play.app/Contents/Frameworks/Mantle.framework/Mantle  -> Versions/Current/Mantle 
+    linking: /Applications/Plarium Play.app/Contents/Frameworks/Mantle.framework/Resources  -> Versions/Current/Resources 
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Mantle.framework/Versions
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Mantle.framework/Versions/A
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Mantle.framework/Versions/A/_CodeSignature
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Mantle.framework/Versions/A/_CodeSignature/CodeResources  
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Mantle.framework/Versions/A/Mantle  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Mantle.framework/Versions/A/Resources
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Mantle.framework/Versions/A/Resources/Info.plist  
+    linking: /Applications/Plarium Play.app/Contents/Frameworks/Mantle.framework/Versions/Current  -> A 
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Plarium Play Helper (GPU).app
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Plarium Play Helper (GPU).app/Contents
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Plarium Play Helper (GPU).app/Contents/_CodeSignature
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Plarium Play Helper (GPU).app/Contents/_CodeSignature/CodeResources  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Plarium Play Helper (GPU).app/Contents/MacOS
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Plarium Play Helper (GPU).app/Contents/MacOS/Plarium Play Helper (GPU)  
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Plarium Play Helper (GPU).app/Contents/Info.plist  
+ extracting: /Applications/Plarium Play.app/Contents/Frameworks/Plarium Play Helper (GPU).app/Contents/PkgInfo  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Plarium Play Helper (Plugin).app
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Plarium Play Helper (Plugin).app/Contents
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Plarium Play Helper (Plugin).app/Contents/_CodeSignature
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Plarium Play Helper (Plugin).app/Contents/_CodeSignature/CodeResources  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Plarium Play Helper (Plugin).app/Contents/MacOS
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Plarium Play Helper (Plugin).app/Contents/MacOS/Plarium Play Helper (Plugin)  
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Plarium Play Helper (Plugin).app/Contents/Info.plist  
+ extracting: /Applications/Plarium Play.app/Contents/Frameworks/Plarium Play Helper (Plugin).app/Contents/PkgInfo  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Plarium Play Helper (Renderer).app
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Plarium Play Helper (Renderer).app/Contents
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Plarium Play Helper (Renderer).app/Contents/_CodeSignature
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Plarium Play Helper (Renderer).app/Contents/_CodeSignature/CodeResources  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Plarium Play Helper (Renderer).app/Contents/MacOS
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Plarium Play Helper (Renderer).app/Contents/MacOS/Plarium Play Helper (Renderer)  
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Plarium Play Helper (Renderer).app/Contents/Info.plist  
+ extracting: /Applications/Plarium Play.app/Contents/Frameworks/Plarium Play Helper (Renderer).app/Contents/PkgInfo  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Plarium Play Helper.app
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Plarium Play Helper.app/Contents
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Plarium Play Helper.app/Contents/_CodeSignature
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Plarium Play Helper.app/Contents/_CodeSignature/CodeResources  
+   creating: /Applications/Plarium Play.app/Contents/Frameworks/Plarium Play Helper.app/Contents/MacOS
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Plarium Play Helper.app/Contents/MacOS/Plarium Play Helper  
+  inflating: /Applications/Plarium Play.app/Contents/Frameworks/Plarium Play Helper.app/Contents/Info.plist  
+ extracting: /Applications/Plarium Play.app/Contents/Frameworks/Plarium Play Helper.app/Contents/PkgInfo  
+  inflating: /Applications/Plarium Play.app/Contents/Info.plist  
+ extracting: /Applications/Plarium Play.app/Contents/PkgInfo  
+finishing deferred symbolic links:
+  /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Electron Framework -> Versions/Current/Electron Framework
+  /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Resources -> Versions/Current/Resources
+  /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Versions/Current -> A
+  /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Libraries -> Versions/Current/Libraries
+  /Applications/Plarium Play.app/Contents/Frameworks/Electron Framework.framework/Helpers -> Versions/Current/Helpers
+  /Applications/Plarium Play.app/Contents/Frameworks/ReactiveObjC.framework/Resources -> Versions/Current/Resources
+  /Applications/Plarium Play.app/Contents/Frameworks/ReactiveObjC.framework/ReactiveObjC -> Versions/Current/ReactiveObjC
+  /Applications/Plarium Play.app/Contents/Frameworks/ReactiveObjC.framework/Versions/Current -> A
+  /Applications/Plarium Play.app/Contents/Frameworks/Squirrel.framework/Resources -> Versions/Current/Resources
+  /Applications/Plarium Play.app/Contents/Frameworks/Squirrel.framework/Versions/Current -> A
+  /Applications/Plarium Play.app/Contents/Frameworks/Squirrel.framework/Squirrel -> Versions/Current/Squirrel
+  /Applications/Plarium Play.app/Contents/Frameworks/Mantle.framework/Mantle -> Versions/Current/Mantle
+  /Applications/Plarium Play.app/Contents/Frameworks/Mantle.framework/Resources -> Versions/Current/Resources
+  /Applications/Plarium Play.app/Contents/Frameworks/Mantle.framework/Versions/Current -> A
+2026-01-24 18:24:37 Phase 3: set permissions
+2026-01-24 18:24:37 sudo mkdir -p /Library/Application Support/PlariumPlay >> ~/installer.log 2>&1; sudo chmod 777 /Library/Application Support/PlariumPlay >> ~/installer.log 2>&1; sudo open -a /Applications/Plarium\ Play.app --args -first-run -setup-file=/Users/aidan/Public/Payload
